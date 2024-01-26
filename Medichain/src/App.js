@@ -109,6 +109,7 @@ function App() {
             </SideBar>
           }
         />
+        <Route path="/p" element={<Patient />} />
       </Routes>
     </ChakraProvider>
   );

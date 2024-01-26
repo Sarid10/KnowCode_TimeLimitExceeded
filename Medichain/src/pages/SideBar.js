@@ -61,12 +61,12 @@ const NavItemProps = {
 
 // MobileProps
 const MobileProps = {
-  onOpen: () => {},
+  onOpen: () => { },
 };
 
 // SidebarProps
 const SidebarProps = {
-  onClose: () => {},
+  onClose: () => { },
 };
 
 // let LinkItems: Array<LinkItemProps> = []
@@ -113,7 +113,7 @@ const SidebarProps = {
 //   { name: 'Profile', icon: FiSettings },
 // ]
 
-const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+const SidebarContent = ({ onClose, ...rest }) => {
   const { userType } = useContract();
 
   // LinkItemProps
@@ -122,7 +122,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     icon: "IconType",
   };
 
-  let LinkItems: Array<LinkItemProps> = [];
+  // let LinkItems: Array<LinkItemProps> = [];
 
   if (userType === "Doctor") {
     LinkItems = [
@@ -170,7 +170,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   );
 };
 
-const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+const NavItem = ({ icon, children, ...rest }) => {
   return (
     <Link to={`/${children}`}>
       <Box
@@ -208,7 +208,7 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
   );
 };
 
-const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+const MobileNav = ({ onOpen, ...rest }) => {
   const { userType } = useContract();
 
   const navigate = useNavigate();
