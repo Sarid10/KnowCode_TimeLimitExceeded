@@ -3,11 +3,16 @@ import { Tabs, Tab, TabList, TabPanel, TabPanels } from "@chakra-ui/react";
 import { useEffect } from "react";
 
 import { useContract } from "../context/context";
+import { usePatientContext } from "../context/patientContext";
 
 const Patient = () => {
-  useEffect(() => {}, []);
+  // useEffect(() => {}, []);
 
-  return <h1>Patient</h1>;
+  const { profile } = usePatientContext();
+
+
+
+  return <h1>{profile}</h1>;
 };
 
 export default Patient;
