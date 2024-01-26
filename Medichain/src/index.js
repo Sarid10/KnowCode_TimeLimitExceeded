@@ -3,14 +3,14 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import "./global.css";
-import { EVaultProvider } from "./context/context";
+import { MeddyProvider } from "./context/context";
 const container = document.getElementById("root");
 const root = createRoot(container);
 
 root.render(
-  <EVaultProvider>
+  <MeddyProvider>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </EVaultProvider>
+  </MeddyProvider>
 );

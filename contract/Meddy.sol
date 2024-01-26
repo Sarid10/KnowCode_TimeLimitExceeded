@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 error NOT_AUTHORIZED();
 error DOCTOR_NOT_FOUND(address _doctor);
 error PATIENT_NOT_FOUND(address _patient);
+error INSUFFICIENT_CONSULTANCYFEE();
 contract Meddy {
 
     struct MedicalRecord {
@@ -65,7 +66,10 @@ contract Meddy {
     }
 
 
-    function diagnosePatient(address _patient, string memory _diseaseName, string memory _drugName,string memory _imgurl, uint256 _charges) public {
+    function diagnosePatient(address _patient, string memory _diseaseName, string memory _drugName,string memory _imgurl, uint256 _charges) public payable {
+        if(msg.value < _charges){
+            revert INSUFFICIENT_CONSULTANCYFEE();
+        }
         MedicalRecord memory newRecord = MedicalRecord(caseId, _diseaseName, _drugName,_imgurl, msg.sender, _charges);
         patients[_patient].medicalRecords.push(newRecord);
         caseId++;

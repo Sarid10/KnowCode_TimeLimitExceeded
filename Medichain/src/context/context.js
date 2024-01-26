@@ -1,18 +1,17 @@
 import { createContext, useContext, useState } from "react";
 
-const EVaultContext = createContext(null);
+const MeddyContext = createContext(null);
 
-export const useVault = () => useContext(EVaultContext);
+export const useContract = () => useContext(MeddyContext);
 
-export const EVaultProvider = (props) => {
+export const MeddyProvider = (props) => {
   const [userType, setUserType] = useState("");
   const [account, setAccount] = useState("");
   const [contract, setContract] = useState(null);
   const [provider, setProvider] = useState(null);
-  const [caseCount, setCaseCount] = useState(-1);
 
   return (
-    <EVaultContext.Provider
+    <MeddyContext.Provider
       value={{
         account,
         setAccount,
@@ -20,13 +19,11 @@ export const EVaultProvider = (props) => {
         setContract,
         provider,
         setProvider,
-        userType, 
+        userType,
         setUserType,
-        caseCount,
-        setCaseCount
       }}
     >
       {props.children}
-    </EVaultContext.Provider>
+    </MeddyContext.Provider>
   );
 };

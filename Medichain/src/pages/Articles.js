@@ -1,18 +1,13 @@
-import React, { useState } from 'react';
-import { Tabs, Tab, TabList, TabPanel, TabPanels } from '@chakra-ui/react';
-import { useEffect } from 'react';
+import React, { useState } from "react";
+import { Tabs, Tab, TabList, TabPanel, TabPanels } from "@chakra-ui/react";
+import { useEffect } from "react";
 
-import { useVault } from '../context/context';
+import { useContract } from "../context/context";
 
 const Articles = () => {
+  useEffect(() => {}, []);
 
-    useEffect(() => {
-        
-    }, []);
-
-    return (
-        <h1>Articles</h1>
-    )
+  return <h1>Articles</h1>;
 };
 
 export default Articles;

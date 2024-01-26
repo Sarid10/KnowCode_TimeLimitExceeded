@@ -1,9 +1,9 @@
 import { useCallback, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./HomePage.module.css";
-import { useVault } from "../context/context";
+import { useContract } from "../context/context";
 import axios from "axios";
-import { DNA } from 'react-loader-spinner';
+import { DNA } from "react-loader-spinner";
 import { Input } from "@chakra-ui/react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
@@ -54,7 +54,7 @@ const Assistant = () => {
     // const response = await result.response;
     // const text = response.text();
     // setResponse(text);
-    
+
     // return text;
   }
 
@@ -63,11 +63,19 @@ const Assistant = () => {
       <div className={styles.navbar}>
         <div className={styles.nav}>
           <button className={styles.logo}>
-            <img style={{height:"5vw"}} alt="" src="/mediChain_icon_inverted.svg" />
+            <img
+              style={{ height: "5vw" }}
+              alt=""
+              src="/mediChain_icon_inverted.svg"
+            />
           </button>
           <div className={styles.menuright}>
             <div className={styles.menulinks}>
-              <button className={styles.exercises} style={{fontSize:"180%"}} onClick={()=>navigate("/")}>
+              <button
+                className={styles.exercises}
+                style={{ fontSize: "180%" }}
+                onClick={() => navigate("/")}
+              >
                 HOME
               </button>
             </div>
@@ -77,49 +85,82 @@ const Assistant = () => {
           </div>
         </div>
       </div>
-      
-      
-      <div style={{width:"100%", display:"flex", justifyContent:"center", alignItems:"center"}}>
-      <div style={{display:"flex", width:"50%", height:"50%", justifyContent:"center"}}>
-        <Input
-            style={{width:"75%", height:"70px"}}
+
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            width: "50%",
+            height: "50%",
+            justifyContent: "center",
+          }}
+        >
+          <Input
+            style={{ width: "75%", height: "70px" }}
             placeholder="Enter your query"
-            bg={'gray.100'}
+            bg={"gray.100"}
             border={0}
-            color={'gray.500'}
+            color={"gray.500"}
             _placeholder={{
-                color: 'gray.500',
+              color: "gray.500",
             }}
             onChange={(e) => setQuery(e.target.value)}
-        />
+          />
 
-        <div>
-            <button className={styles.button} style={{width:"150px", marginLeft:"20px"}} onClick={handleQuery}>
-                <div className={styles.getStarted}>Enter</div>
+          <div>
+            <button
+              className={styles.button}
+              style={{ width: "150px", marginLeft: "20px" }}
+              onClick={handleQuery}
+            >
+              <div className={styles.getStarted}>Enter</div>
             </button>
+          </div>
         </div>
       </div>
-      </div>
 
-      <div style={{marginTop:"20vh", width:"100%", display:"flex", alignItems:"center", justifyContent:"center"}}>
-        {spinner && <DNA
+      <div
+        style={{
+          marginTop: "20vh",
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {spinner && (
+          <DNA
             visible={true}
             height="100"
             width="100"
             ariaLabel="dna-loading"
             wrapperStyle={{}}
             wrapperClass="dna-wrapper"
-            />}
-      </div>
-
-      <div style={{height:"100vh"}}>
-        {!spinner && response && (
-            <div className={styles.loremIpsumDolor} style={{fontSize:"25px", marginLeft:"100px", marginRight:"100px"}}>
-                {response}
-            </div>
+          />
         )}
       </div>
 
+      <div style={{ height: "100vh" }}>
+        {!spinner && response && (
+          <div
+            className={styles.loremIpsumDolor}
+            style={{
+              fontSize: "25px",
+              marginLeft: "100px",
+              marginRight: "100px",
+            }}
+          >
+            {response}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
