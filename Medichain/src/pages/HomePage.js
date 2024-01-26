@@ -4,12 +4,11 @@ import styles from "./HomePage.module.css";
 import { useVault } from "../context/context";
 import { useToast } from "@chakra-ui/react";
 import { ethers } from "ethers";
-import Evault from "../artifacts/contracts/Evault.sol/Evault.json";
 
 import { ChatIcon } from "@chakra-ui/icons";
 
 const HomePage = () => {
-  
+
   const navigate = useNavigate();
   const { account, setAccount, contract, setContract, provider, setProvider, userType, setUserType } =
     useVault();
@@ -56,13 +55,13 @@ const HomePage = () => {
 
   //   // Setting a balance
   //   getbalance(account);
-    // toast({
-    //   position: "top",
-    //   title: "Connected With Metamask Successfully",
-    //   status: "success",
-    //   duration: 1500,
-    //   isClosable: true,
-    // });
+  // toast({
+  //   position: "top",
+  //   title: "Connected With Metamask Successfully",
+  //   status: "success",
+  //   duration: 1500,
+  //   isClosable: true,
+  // });
   //   navigate("Dashboard", {
   //     state: { address: data["address"], Balance: data["Balance"] },
   //   });
@@ -114,7 +113,7 @@ const HomePage = () => {
         );
         setContract(contract);
         setProvider(signer);
-        if(address === '0x46A2A666fc06681e2cB49440a0776a6C4Cc21906') {
+        if (address === '0x46A2A666fc06681e2cB49440a0776a6C4Cc21906') {
           setUserType("Doctor");
           navigate("Dashboard");
         }
@@ -176,17 +175,17 @@ const HomePage = () => {
 
   }
 
-  const chatBotResponse = async(e) => {
-    e.preventDefault(); 
+  const chatBotResponse = async (e) => {
+    e.preventDefault();
     console.log(input);
 
-    
+
     const op = await getResponse(input + ".\nGenerate Content in numbered points and one liners around 20 - 25 words.");
     console.log(op);
   }
 
   async function getResponse(inp) {
-    
+
     const result = await model.generateContent(inp);
     const response = await result.response;
     const text = response.text();
@@ -207,17 +206,17 @@ const HomePage = () => {
       <div className={styles.navbar}>
         <div className={styles.nav}>
           <button className={styles.logo} onClick={onLogoClick}>
-            <img style={{height:"5vw"}} alt="" src="/mediChain_icon_inverted.svg" />
+            <img style={{ height: "5vw" }} alt="" src="/mediChain_icon_inverted.svg" />
           </button>
           <div className={styles.menuright}>
             <div className={styles.menulinks}>
-              <button className={styles.exercises} style={{fontSize:"180%"}} onClick={onAssistantClick}>
-              <ChatIcon/> ASK US 
+              <button className={styles.exercises} style={{ fontSize: "180%" }} onClick={onAssistantClick}>
+                <ChatIcon /> ASK US
               </button>
-              <button className={styles.exercises} style={{fontSize:"180%"}} onClick={onNewsClick}>
+              <button className={styles.exercises} style={{ fontSize: "180%" }} onClick={onNewsClick}>
                 NEWS
               </button>
-              <button className={styles.login} style={{fontSize:"180%"}} onClick={requestMetaMaskAccess}>
+              <button className={styles.login} style={{ fontSize: "180%" }} onClick={requestMetaMaskAccess}>
                 LOGIN WITH METAMASK
               </button>
             </div>
@@ -232,10 +231,10 @@ const HomePage = () => {
           <div className={styles.herocta}>
             <div className={styles.title}>
               <p className={styles.cardio}>{``}</p>
-              <p style={{fontSize:"150px"}}>MediChain</p>
+              <p style={{ fontSize: "150px" }}>MediChain</p>
             </div>
             <div className={styles.subtitle}>
-            Empowering Health with Trust: Decentralized Patient Records, Transparent Drug Supply Chains, and AI-Powered Wellness Assistance.
+              Empowering Health with Trust: Decentralized Patient Records, Transparent Drug Supply Chains, and AI-Powered Wellness Assistance.
             </div>
             <div className={styles.buttonrow}>
               <button className={styles.button} onClick={requestMetaMaskAccess}>
@@ -251,9 +250,9 @@ const HomePage = () => {
           </div>
         </div>
         {/* <img className={styles.heroimageIcon} alt="" src="/documents.jpg" /> */}
-          <video width="640" height="360" className={styles.heroimageIcon} autoPlay loop muted>
-            <source src="/doc.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
+        <video width="640" height="360" className={styles.heroimageIcon} autoPlay loop muted>
+          <source src="/doc.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
         </video>
       </div>
       <div
@@ -365,7 +364,7 @@ const HomePage = () => {
             </div>
             <div className={styles.description}>
               <div className={styles.loremIpsumDolor}>
-              Decentralized Patient Records, Transparent Drug Supply Chains, and AI-Powered Wellness Assistance.
+                Decentralized Patient Records, Transparent Drug Supply Chains, and AI-Powered Wellness Assistance.
               </div>
               <button
                 className={styles.button2}
@@ -464,7 +463,7 @@ const HomePage = () => {
         <div className={styles.subscribeform}>
           <div className={styles.title11}>Connect With Us</div>
           <form className={styles.form} id="formID">
-            <input className={styles.input} placeholder="Email" type="text" onChange={(e) => setInput(e.target.value)}/>
+            <input className={styles.input} placeholder="Email" type="text" onChange={(e) => setInput(e.target.value)} />
             <button
               className={styles.button3}
               type="submit"
