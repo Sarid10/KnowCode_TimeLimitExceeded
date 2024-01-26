@@ -490,9 +490,9 @@ const HomePage = () => {
           contractAbi,
           signer
         );
-         console.log(contract);
+        console.log(contract);
         setContract(contract);
-       
+
         setProvider(signer);
         if (address === "0x46A2A666fc06681e2cB49440a0776a6C4Cc21906") {
           setUserType("Doctor");
