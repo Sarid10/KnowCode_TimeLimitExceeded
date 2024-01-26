@@ -121,7 +121,11 @@ const HomePage = () => {
         setContract(contract);
 
         setProvider(signer);
-        if (address === "0x46A2A666fc06681e2cB49440a0776a6C4Cc21906") {
+        if (
+          address === "0x46A2A666fc06681e2cB49440a0776a6C4Cc21906" ||
+          address === "0xf40b291189aE7F917c39D0B7e327E0A929c9952c" ||
+          address === "0xdaDD30aAEe8E15F925b3b0F0e18f84E6FE62C6f9"
+        ) {
           setUserType("Doctor");
           navigate("Dashboard");
         } else {
