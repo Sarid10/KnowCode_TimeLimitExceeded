@@ -4,15 +4,20 @@ import styles from "./HomePage.module.css";
 import { useVault } from "../context/context";
 import { useToast } from "@chakra-ui/react";
 import { ethers } from "ethers";
-import Evault from "../artifacts/contracts/Evault.sol/Evault.json";
-
 import { ChatIcon } from "@chakra-ui/icons";
 
 const HomePage = () => {
-  
   const navigate = useNavigate();
-  const { account, setAccount, contract, setContract, provider, setProvider, userType, setUserType } =
-    useVault();
+  const {
+    account,
+    setAccount,
+    contract,
+    setContract,
+    provider,
+    setProvider,
+    userType,
+    setUserType,
+  } = useVault();
 
   const [data, setdata] = useState({
     address: "",
@@ -28,10 +33,9 @@ const HomePage = () => {
     //   const a = await model.generateContent("'user_agent': 'Personalized AI healthcre assistance'");
     //   console.log(a);
     // }
-
     // initializeModel()
     // console.log("done");
-  }, [])
+  }, []);
 
   // const getbalance = (address) => {
   //   // Requesting balance method
@@ -56,13 +60,13 @@ const HomePage = () => {
 
   //   // Setting a balance
   //   getbalance(account);
-    // toast({
-    //   position: "top",
-    //   title: "Connected With Metamask Successfully",
-    //   status: "success",
-    //   duration: 1500,
-    //   isClosable: true,
-    // });
+  // toast({
+  //   position: "top",
+  //   title: "Connected With Metamask Successfully",
+  //   status: "success",
+  //   duration: 1500,
+  //   isClosable: true,
+  // });
   //   navigate("Dashboard", {
   //     state: { address: data["address"], Balance: data["Balance"] },
   //   });
@@ -106,19 +110,394 @@ const HomePage = () => {
         const signer = provider.getSigner();
         const address = await signer.getAddress();
         setAccount(address);
-        const contractAddress = "0x2B03BFC7C9eF19936Aba4EcF78e908084fC24241";
+        const contractAddress = "0x87551c462e1E99baf441c101971fAd5DAA397f8C";
+        const abi = [
+          {
+            inputs: [
+              {
+                internalType: "string",
+                name: "_name",
+                type: "string",
+              },
+              {
+                internalType: "uint256",
+                name: "_doctorId",
+                type: "uint256",
+              },
+              {
+                internalType: "string",
+                name: "_specialism",
+                type: "string",
+              },
+            ],
+            name: "addDoctor",
+            outputs: [],
+            stateMutability: "nonpayable",
+            type: "function",
+          },
+          {
+            inputs: [
+              {
+                internalType: "string",
+                name: "_name",
+                type: "string",
+              },
+              {
+                internalType: "uint16",
+                name: "_age",
+                type: "uint16",
+              },
+              {
+                internalType: "uint16",
+                name: "_weight",
+                type: "uint16",
+              },
+              {
+                internalType: "uint16",
+                name: "_height",
+                type: "uint16",
+              },
+            ],
+            name: "addPatient",
+            outputs: [],
+            stateMutability: "nonpayable",
+            type: "function",
+          },
+          {
+            inputs: [
+              {
+                internalType: "address",
+                name: "_patient",
+                type: "address",
+              },
+              {
+                internalType: "string",
+                name: "_diseaseName",
+                type: "string",
+              },
+              {
+                internalType: "string",
+                name: "_drugName",
+                type: "string",
+              },
+              {
+                internalType: "string",
+                name: "_imgurl",
+                type: "string",
+              },
+              {
+                internalType: "uint256",
+                name: "_charges",
+                type: "uint256",
+              },
+            ],
+            name: "diagnosePatient",
+            outputs: [],
+            stateMutability: "payable",
+            type: "function",
+          },
+          {
+            inputs: [
+              {
+                internalType: "address",
+                name: "_doctor",
+                type: "address",
+              },
+            ],
+            name: "DOCTOR_NOT_FOUND",
+            type: "error",
+          },
+          {
+            inputs: [
+              {
+                internalType: "address",
+                name: "_referredDoctor",
+                type: "address",
+              },
+              {
+                internalType: "address",
+                name: "_patient",
+                type: "address",
+              },
+            ],
+            name: "grantAccess",
+            outputs: [],
+            stateMutability: "nonpayable",
+            type: "function",
+          },
+          {
+            inputs: [],
+            name: "INSUFFICIENT_CONSULTANCYFEE",
+            type: "error",
+          },
+          {
+            inputs: [],
+            name: "NOT_AUTHORIZED",
+            type: "error",
+          },
+          {
+            inputs: [
+              {
+                internalType: "address",
+                name: "_patient",
+                type: "address",
+              },
+            ],
+            name: "PATIENT_NOT_FOUND",
+            type: "error",
+          },
+          {
+            anonymous: false,
+            inputs: [
+              {
+                indexed: true,
+                internalType: "address",
+                name: "patient",
+                type: "address",
+              },
+              {
+                indexed: true,
+                internalType: "address",
+                name: "doctor",
+                type: "address",
+              },
+              {
+                indexed: false,
+                internalType: "string",
+                name: "disease",
+                type: "string",
+              },
+              {
+                indexed: false,
+                internalType: "string",
+                name: "drug",
+                type: "string",
+              },
+            ],
+            name: "Diagnosis",
+            type: "event",
+          },
+          {
+            inputs: [
+              {
+                internalType: "address",
+                name: "_patient",
+                type: "address",
+              },
+              {
+                internalType: "address",
+                name: "_doctor",
+                type: "address",
+              },
+            ],
+            name: "removeAccess",
+            outputs: [],
+            stateMutability: "nonpayable",
+            type: "function",
+          },
+          {
+            inputs: [
+              {
+                internalType: "address",
+                name: "",
+                type: "address",
+              },
+            ],
+            name: "doctors",
+            outputs: [
+              {
+                internalType: "uint256",
+                name: "id",
+                type: "uint256",
+              },
+              {
+                internalType: "string",
+                name: "name",
+                type: "string",
+              },
+              {
+                internalType: "uint256",
+                name: "doctorId",
+                type: "uint256",
+              },
+              {
+                internalType: "string",
+                name: "specialism",
+                type: "string",
+              },
+            ],
+            stateMutability: "view",
+            type: "function",
+          },
+          {
+            inputs: [
+              {
+                internalType: "address",
+                name: "_doctor",
+                type: "address",
+              },
+            ],
+            name: "getDoctorDetails",
+            outputs: [
+              {
+                internalType: "string",
+                name: "",
+                type: "string",
+              },
+              {
+                internalType: "uint256",
+                name: "",
+                type: "uint256",
+              },
+              {
+                internalType: "string",
+                name: "",
+                type: "string",
+              },
+              {
+                internalType: "address[]",
+                name: "",
+                type: "address[]",
+              },
+            ],
+            stateMutability: "view",
+            type: "function",
+          },
+          {
+            inputs: [
+              {
+                internalType: "address",
+                name: "_patient",
+                type: "address",
+              },
+            ],
+            name: "getPatientDetails",
+            outputs: [
+              {
+                internalType: "uint256",
+                name: "",
+                type: "uint256",
+              },
+              {
+                internalType: "string",
+                name: "",
+                type: "string",
+              },
+              {
+                internalType: "uint16",
+                name: "",
+                type: "uint16",
+              },
+              {
+                internalType: "uint16",
+                name: "",
+                type: "uint16",
+              },
+              {
+                internalType: "uint16",
+                name: "",
+                type: "uint16",
+              },
+              {
+                components: [
+                  {
+                    internalType: "uint256",
+                    name: "case_no",
+                    type: "uint256",
+                  },
+                  {
+                    internalType: "string",
+                    name: "diseaseName",
+                    type: "string",
+                  },
+                  {
+                    internalType: "string",
+                    name: "drugName",
+                    type: "string",
+                  },
+                  {
+                    internalType: "string",
+                    name: "imgurl",
+                    type: "string",
+                  },
+                  {
+                    internalType: "address",
+                    name: "doctor",
+                    type: "address",
+                  },
+                  {
+                    internalType: "uint256",
+                    name: "consultancyFees",
+                    type: "uint256",
+                  },
+                ],
+                internalType: "struct Meddy.MedicalRecord[]",
+                name: "",
+                type: "tuple[]",
+              },
+              {
+                internalType: "address[]",
+                name: "",
+                type: "address[]",
+              },
+            ],
+            stateMutability: "view",
+            type: "function",
+          },
+          {
+            inputs: [
+              {
+                internalType: "address",
+                name: "",
+                type: "address",
+              },
+            ],
+            name: "patients",
+            outputs: [
+              {
+                internalType: "uint256",
+                name: "id",
+                type: "uint256",
+              },
+              {
+                internalType: "string",
+                name: "name",
+                type: "string",
+              },
+              {
+                internalType: "uint16",
+                name: "age",
+                type: "uint16",
+              },
+              {
+                internalType: "uint16",
+                name: "weight",
+                type: "uint16",
+              },
+              {
+                internalType: "uint16",
+                name: "height",
+                type: "uint16",
+              },
+            ],
+            stateMutability: "view",
+            type: "function",
+          },
+        ];
+        const contractAbi = abi;
         const contract = new ethers.Contract(
           contractAddress,
-          Evault.abi,
+          contractAbi,
           signer
         );
+         console.log(contract);
         setContract(contract);
+       
         setProvider(signer);
-        if(address === '0x46A2A666fc06681e2cB49440a0776a6C4Cc21906') {
+        if (address === "0x46A2A666fc06681e2cB49440a0776a6C4Cc21906") {
           setUserType("Doctor");
           navigate("Dashboard");
-        }
-        else {
+        } else {
           setUserType("Patient");
           navigate("Dashboard");
         }
@@ -162,7 +541,6 @@ const HomePage = () => {
     }
   }, []);
 
-
   const onButton1Click = useCallback(() => {
     const anchor = document.querySelector(
       "[data-scroll-to='popularExercisesSection']"
@@ -172,21 +550,20 @@ const HomePage = () => {
     }
   }, []);
 
-  const subscribeToEmail = () => {
+  const subscribeToEmail = () => {};
 
-  }
-
-  const chatBotResponse = async(e) => {
-    e.preventDefault(); 
+  const chatBotResponse = async (e) => {
+    e.preventDefault();
     console.log(input);
 
-    
-    const op = await getResponse(input + ".\nGenerate Content in numbered points and one liners around 20 - 25 words.");
+    const op = await getResponse(
+      input +
+        ".\nGenerate Content in numbered points and one liners around 20 - 25 words."
+    );
     console.log(op);
-  }
+  };
 
   async function getResponse(inp) {
-    
     const result = await model.generateContent(inp);
     const response = await result.response;
     const text = response.text();
@@ -196,28 +573,44 @@ const HomePage = () => {
   }
 
   const onNewsClick = () => {
-    navigate('/news');
-  }
+    navigate("/news");
+  };
   const onAssistantClick = () => {
-    navigate('/assistant');
-  }
+    navigate("/assistant");
+  };
 
   return (
     <div className={styles.fitnesslandingpage}>
       <div className={styles.navbar}>
         <div className={styles.nav}>
           <button className={styles.logo} onClick={onLogoClick}>
-            <img style={{height:"5vw"}} alt="" src="/mediChain_icon_inverted.svg" />
+            <img
+              style={{ height: "5vw" }}
+              alt=""
+              src="/mediChain_icon_inverted.svg"
+            />
           </button>
           <div className={styles.menuright}>
             <div className={styles.menulinks}>
-              <button className={styles.exercises} style={{fontSize:"180%"}} onClick={onAssistantClick}>
-              <ChatIcon/> ASK US 
+              <button
+                className={styles.exercises}
+                style={{ fontSize: "180%" }}
+                onClick={onAssistantClick}
+              >
+                <ChatIcon /> ASK US
               </button>
-              <button className={styles.exercises} style={{fontSize:"180%"}} onClick={onNewsClick}>
+              <button
+                className={styles.exercises}
+                style={{ fontSize: "180%" }}
+                onClick={onNewsClick}
+              >
                 NEWS
               </button>
-              <button className={styles.login} style={{fontSize:"180%"}} onClick={requestMetaMaskAccess}>
+              <button
+                className={styles.login}
+                style={{ fontSize: "180%" }}
+                onClick={requestMetaMaskAccess}
+              >
                 LOGIN WITH METAMASK
               </button>
             </div>
@@ -232,10 +625,12 @@ const HomePage = () => {
           <div className={styles.herocta}>
             <div className={styles.title}>
               <p className={styles.cardio}>{``}</p>
-              <p style={{fontSize:"150px"}}>MediChain</p>
+              <p style={{ fontSize: "150px" }}>MediChain</p>
             </div>
             <div className={styles.subtitle}>
-            Empowering Health with Trust: Decentralized Patient Records, Transparent Drug Supply Chains, and AI-Powered Wellness Assistance.
+              Empowering Health with Trust: Decentralized Patient Records,
+              Transparent Drug Supply Chains, and AI-Powered Wellness
+              Assistance.
             </div>
             <div className={styles.buttonrow}>
               <button className={styles.button} onClick={requestMetaMaskAccess}>
@@ -251,9 +646,16 @@ const HomePage = () => {
           </div>
         </div>
         {/* <img className={styles.heroimageIcon} alt="" src="/documents.jpg" /> */}
-          <video width="640" height="360" className={styles.heroimageIcon} autoPlay loop muted>
-            <source src="/doc.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
+        <video
+          width="640"
+          height="360"
+          className={styles.heroimageIcon}
+          autoPlay
+          loop
+          muted
+        >
+          <source src="/doc.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
         </video>
       </div>
       <div
@@ -305,11 +707,7 @@ const HomePage = () => {
                 </div>
               </div>
               <div className={styles.exercisecard}>
-                <img
-                  className={styles.imageIcon}
-                  alt=""
-                  src="/safeguard.jpg"
-                />
+                <img className={styles.imageIcon} alt="" src="/safeguard.jpg" />
                 <div className={styles.text}>
                   <div className={styles.titles}>
                     <div className={styles.popularExercises}>
@@ -365,7 +763,8 @@ const HomePage = () => {
             </div>
             <div className={styles.description}>
               <div className={styles.loremIpsumDolor}>
-              Decentralized Patient Records, Transparent Drug Supply Chains, and AI-Powered Wellness Assistance.
+                Decentralized Patient Records, Transparent Drug Supply Chains,
+                and AI-Powered Wellness Assistance.
               </div>
               <button
                 className={styles.button2}
@@ -383,7 +782,11 @@ const HomePage = () => {
               <div className={styles.samanthaWilliam}>Patient</div>
             </div>
             <div className={styles.trainer2}>
-              <img className={styles.trainer3Child} alt="" src="/interaction.jpg" />
+              <img
+                className={styles.trainer3Child}
+                alt=""
+                src="/interaction.jpg"
+              />
               <div className={styles.samanthaWilliam}>Healthcare</div>
             </div>
             <div className={styles.trainer11}>
@@ -397,7 +800,11 @@ const HomePage = () => {
               <div className={styles.karenSummer1}>Doctors</div>
             </div>
             <div className={styles.trainer21}>
-              <img className={styles.trainer2Item} alt="" src="/interaction.jpg" />
+              <img
+                className={styles.trainer2Item}
+                alt=""
+                src="/interaction.jpg"
+              />
               <div className={styles.jonathanWise1}>Healthcare</div>
             </div>
             <div className={styles.trainer12}>
@@ -452,7 +859,9 @@ const HomePage = () => {
             <div className={styles.div6}>05</div>
             <div className={styles.action}>
               <div className={styles.titles3}>
-                <div className={styles.title6}>Patients Can View Medical History</div>
+                <div className={styles.title6}>
+                  Patients Can View Medical History
+                </div>
                 {/* <div className={styles.courses}>some description</div> */}
               </div>
             </div>
@@ -464,7 +873,12 @@ const HomePage = () => {
         <div className={styles.subscribeform}>
           <div className={styles.title11}>Connect With Us</div>
           <form className={styles.form} id="formID">
-            <input className={styles.input} placeholder="Email" type="text" onChange={(e) => setInput(e.target.value)}/>
+            <input
+              className={styles.input}
+              placeholder="Email"
+              type="text"
+              onChange={(e) => setInput(e.target.value)}
+            />
             <button
               className={styles.button3}
               type="submit"
