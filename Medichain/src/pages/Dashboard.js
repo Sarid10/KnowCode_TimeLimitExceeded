@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useVault } from "../context/context";
+import { useContract } from "../context/context";
 import {
   Card,
   CardBody,
@@ -22,7 +22,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { InfoOutlineIcon } from "@chakra-ui/icons";
 
 const Dashboard = (props) => {
-  const { account, contract, userType } = useVault();
+  const { account, contract, userType } = useContract();
   const navigate = useNavigate();
 
   useEffect(() => {}, []);

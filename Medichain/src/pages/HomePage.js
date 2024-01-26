@@ -1,11 +1,11 @@
 import { useCallback, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./HomePage.module.css";
-import { useVault } from "../context/context";
+import { useContract } from "../context/context";
 import { useToast } from "@chakra-ui/react";
 import { ethers } from "ethers";
 import { ChatIcon } from "@chakra-ui/icons";
-import MeddyJSON from "../constants/Meddy.json"
+import MeddyJSON from "../constants/Meddy.json";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const HomePage = () => {
     setProvider,
     userType,
     setUserType,
-  } = useVault();
+  } = useContract();
 
   const [data, setdata] = useState({
     address: "",
@@ -177,7 +177,7 @@ const HomePage = () => {
     }
   }, []);
 
-  const subscribeToEmail = () => { };
+  const subscribeToEmail = () => {};
 
   const chatBotResponse = async (e) => {
     e.preventDefault();
@@ -185,7 +185,7 @@ const HomePage = () => {
 
     const op = await getResponse(
       input +
-      ".\nGenerate Content in numbered points and one liners around 20 - 25 words."
+        ".\nGenerate Content in numbered points and one liners around 20 - 25 words."
     );
     console.log(op);
   };
