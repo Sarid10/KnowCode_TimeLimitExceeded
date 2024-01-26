@@ -217,6 +217,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
 
   const signOutOfMetamask = () => {
     navigate("/");
+    localStorage.setItem("chatHistory", "");
 
     toast({
       position: 'top',

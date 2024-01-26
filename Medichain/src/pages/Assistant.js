@@ -11,6 +11,8 @@ const Assistant = () => {
   const genAi = new GoogleGenerativeAI("AIzaSyAAOmuIGSB9PUw_wnD1BLFQ7hFVS7qc_DA");
   const model = genAi.getGenerativeModel({model:"gemini-pro"});
 
+  const [history, setHistory] = useState([]);
+
   const [news, setNews] = useState([]);
   const [spinner, setSpinner] = useState(false);
   const [query, setQuery] = useState("");
@@ -18,7 +20,12 @@ const Assistant = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    
+    if(history === []) {
+      console.log("No data yet");
+    }
+    else {
+      // console.log(localStorage.getItem('chatHistory'));
+    }
   }, [])
 
   const handleQuery = async(e) => {
@@ -26,18 +33,24 @@ const Assistant = () => {
     setSpinner(true);
     console.log(query);
     setResponse("");
-    await getResponse(query + "\n.Generate response in paragraph format without points in around 50 words");
-    // console.log(op);
+    const r = await getResponse(query + "\n.Generate response in paragraph format without points in around 50 words");
+    history.push({"query":query, "response":r});
+    // setHistory([...history, {"query":query, "response":r}]);
+    // console.log(history)
+    localStorage.setItem("chatHistory", JSON.stringify(history));
   }
 
   async function getResponse(inp) {
     const result = await model.generateContentStream(inp);
     setSpinner(false);
+    let txt = "";
     for await (const chunk of result.stream) {
         const chunkText = chunk.text();
-        console.log(chunkText);
+        txt += chunkText;
         setResponse(prev => prev + chunkText);
     }
+    setResponse(response + txt);
+    return txt;
     // const response = await result.response;
     // const text = response.text();
     // setResponse(text);
