@@ -22,15 +22,15 @@ const Profile = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
+    if (account === "0x46A2A666fc06681e2cB49440a0776a6C4Cc21906") {
+      setUsertype("doctor");
+    } else {
+      setUsertype("patient");
+    }
     const fetchData = async () => {
       try {
-        if (account === "0x46A2A666fc06681e2cB49440a0776a6C4Cc21906") {
-          setUsertype("doctor");
-        } else {
-          setUsertype("patient");
-          const pDetails = await contract.getPatientDetails(account);
-          setPatientDetails(pDetails.slice(1, 5));
-        }
+        const pDetails = await contract.getPatientDetails(account);
+        setPatientDetails(pDetails.slice(1, 5));
       } catch (e) {
         console.log(e);
       }
