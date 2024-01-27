@@ -74,6 +74,7 @@ const Assistant = () => {
         duration: 1500,
         isClosable: true,
       });
+      localStorage.setItem("chatHistory", "");
     }
     // setResponse(response + txt);
     return txt;
