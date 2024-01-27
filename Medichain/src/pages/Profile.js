@@ -22,7 +22,7 @@ const Profile = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    if (account === "0x46A2A666fc06681e2cB49440a0776a6C4Cc21906") {
+    if (account === "0x46A2A666fc06681e2cB49440a0776a6C4Cc21906" || account === "0x597875bcA8d92C79Cbbc735A90aD25b8CaB9D608" ||account === "0xf40b291189aE7F917c39D0B7e327E0A929c9952c" || account === "0xdaDD30aAEe8E15F925b3b0F0e18f84E6FE62C6f9") {
       setUsertype("doctor");
     } else {
       setUsertype("patient");
@@ -35,15 +35,16 @@ const Profile = () => {
         console.log(e);
       }
     };
-    if (account === "0x46A2A666fc06681e2cB49440a0776a6C4Cc21906") {
-      const getData = async () => {
-        const data = await contract.getDoctorDetails(account);
-        console.log(data);
-        setData(data);
-      };
+    const getData = async () => {
+      const data = await contract.getDoctorDetails(account);
+      console.log(data);
+      setData(data);
+    };
+    if (account === "0x46A2A666fc06681e2cB49440a0776a6C4Cc21906" || account === "0x597875bcA8d92C79Cbbc735A90aD25b8CaB9D608" || account === "0xf40b291189aE7F917c39D0B7e327E0A929c9952c" || account === "0xdaDD30aAEe8E15F925b3b0F0e18f84E6FE62C6f9") {
       getData();
+    } else {
+      fetchData();
     }
-    fetchData();
   }, [account, contract]);
 
   return (
@@ -95,7 +96,7 @@ const Profile = () => {
               />
               <Stack mt="6" spacing="3" align="center">
                 <Heading size="md">Name : {data[0]} </Heading>
-                <Heading size="md">DoctorId : 1</Heading>
+                <Heading size="md">Doctor Id : 1</Heading>
                 <Heading size="md">Specialism : {data[2]}</Heading>
                 <Heading size="md">
                   Total Number of Patients : {data[3]?.length}
