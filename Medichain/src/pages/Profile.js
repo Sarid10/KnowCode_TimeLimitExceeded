@@ -15,14 +15,23 @@ import {
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 const Profile = () => {
-  useEffect(() => {}, []);
+  const { account, contract } = useContract();
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const getData = async () => {
+      const data = await contract.getDoctorDetails(account);
+      console.log(data);
+      setData(data);
+    };
+    getData();
+  }, []);
 
   return (
     <HStack align={"center"} justify={"center"}>
       <Card maxW="lg" align="center">
         <CardBody>
           <Image
-            src="https://thumbs.dreamstime.com/b/judge-simple-flat-vector-personal-profile-icon-symbol-people-concept-illustration-246675256.jpg"
+            src="/doco.jpg"
             alt="Green double couch with wooden legs"
             borderRadius="md"
             width={400}
@@ -30,9 +39,12 @@ const Profile = () => {
             style={{ alignItems: "center", marginLeft: "30px" }}
           />
           <Stack mt="6" spacing="3" align="center">
-            <Heading size="md">User Type : </Heading>
-            <Heading size="md">Name : Advait Yadav</Heading>
-            <Heading size="md">Address :</Heading>
+            <Heading size="md">Name : {data[0]} </Heading>
+            <Heading size="md">DoctorId : 1</Heading>
+            <Heading size="md">Specialism : {data[2]}</Heading>
+            <Heading size="md">
+              Total Number of Patients : {data[3]?.length}
+            </Heading>
           </Stack>
         </CardBody>
         <Divider />
