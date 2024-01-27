@@ -48,8 +48,9 @@ const Profile = () => {
         setData(data);
       };
       getData();
+    } else {
+      fetchData();
     }
-    fetchData();
   }, [account, contract]);
 
   return (
