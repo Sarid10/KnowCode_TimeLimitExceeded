@@ -13,7 +13,7 @@ const Disease = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const pf = await contract.getPatientDetails(account);
+      const pf = await contract.getAllRecords(account);
       let temp = []
       for (let record in pf[5]) {
 
