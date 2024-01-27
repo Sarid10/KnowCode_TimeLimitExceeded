@@ -17,12 +17,17 @@ import {
   useColorModeValue,
   Box,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { InfoOutlineIcon } from "@chakra-ui/icons";
+import MeddyJSON from "../constants/Meddy.json";
+import { ethers } from "ethers";
 
 const Dashboard = (props) => {
-  const { account, contract, userType } = useContract();
+  const toast = useToast();
+  const { account, contract, userType, setContract, setAccount } =
+    useContract();
   const navigate = useNavigate();
   const [numberOfCases, setNumberOfCases] = useState(0);
   const [numOfJudges, setNumOfJudges] = useState(0);
@@ -34,9 +39,61 @@ const Dashboard = (props) => {
   };
 
   useEffect(() => {
-    console.log("Account : ", account);
-    console.log("Contract : ", contract);
-    console.log("User Type : ", userType);
+    const getContract = async () => {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      try {
+        if (provider) {
+          // window.ethereum
+          //   .request({ method: "eth_requestAccounts" })
+          //   .then((res) => accountChangeHandler(res[0]))
+          //   .catch((err) => {
+          //     toast({
+          //       position: "top",
+          //       title: "Error While Connecting With Metamask",
+          //       status: "error",
+          //       duration: 1500,
+          //       isClosable: true,
+          //     });
+          //   });
+          // await provider.send("eth_requestAccounts", []);
+
+          // window.ethereum.on("chainChanged", () => {
+          //   window.location.reload();
+          // });
+
+          // window.ethereum.on("accountsChanged", () => {
+          //   window.location.reload();
+          // });
+
+          // toast({
+          //   position: "top",
+          //   title: "Connected With Metamask Successfully",
+          //   status: "success",
+          //   duration: 1500,
+          //   isClosable: true,
+          // });
+
+          const signer = provider.getSigner();
+          const address = await signer.getAddress();
+          setAccount(address);
+
+          const contract = new ethers.Contract(
+            MeddyJSON.address,
+            MeddyJSON.abi,
+            provider
+          );
+
+          console.log(contract);
+          setContract(contract);
+        }
+        console.log("Account : ", account);
+        console.log("Contract : ", contract);
+        console.log("User Type : ", userType);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getContract();
   }, []);
 
   return (

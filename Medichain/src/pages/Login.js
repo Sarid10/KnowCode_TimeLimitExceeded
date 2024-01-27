@@ -19,11 +19,11 @@ import {
   Heading,
   Text,
   useColorModeValue,
-  Select, 
+  Select,
   useToast,
   RadioGroup,
-  Radio
-} from '@chakra-ui/react'
+  Radio,
+} from "@chakra-ui/react";
 
 const Login = () => {
   const [selectedOption, setSelectedOption] = useState("");
@@ -41,7 +41,7 @@ const Login = () => {
     userType,
     setUserType,
     provider,
-    setProvider
+    setProvider,
   } = useContract();
 
   const [id, setId] = useState(0);
@@ -66,43 +66,43 @@ const Login = () => {
     // if(querySnapshot)
     //   console.log(querySnapshot)
     // return !querySnapshot.empty;
-   
-    const res = await getDocs(collection(db,"profiles"))
-    for(let i=0;i<res.docs.length;i++){
-      if(res?.docs[i]?.data()?.email == email){
-        console.log("Hello",res?.docs[i]?.data()?.userType)
-        setUserType(res?.docs[i]?.data()?.userType)
-        console.log("Hello",userType)
-       return true
+
+    const res = await getDocs(collection(db, "profiles"));
+    for (let i = 0; i < res.docs.length; i++) {
+      if (res?.docs[i]?.data()?.email == email) {
+        console.log("Hello", res?.docs[i]?.data()?.userType);
+        setUserType(res?.docs[i]?.data()?.userType);
+        console.log("Hello", userType);
+        return true;
       }
     }
     return false;
-
   };
 
   useEffect(() => {
-    const get = async() => {
+    const get = async () => {
       const emailAlreadyExists = await emailExists(authData?.email);
       if (emailAlreadyExists) {
         navigate("/Dashboard");
       }
-    }
+    };
 
-    get()
-  }, [])
+    get();
+  }, []);
 
   const signIn = async (e) => {
     e.preventDefault();
     try {
       const docRef = await addDoc(collection(db, "profiles"), {
-        name:authData?.displayName,
-        email:authData?.email,
-        age:age,
+        name: authData?.displayName,
+        email: authData?.email,
+        age: age,
         weight: weight,
         height: height,
         metamaskAddress: metamaskAddress,
         userType: usertype,
       });
+      setAccount(metamaskAddress);
       console.log("Document written with ID: ", docRef.id);
       toast({
         position: "top",
@@ -128,8 +128,8 @@ const Login = () => {
       //     );
       //     console.log(contract);
       //     setContract(contract);
-      
-      //   } 
+
+      //   }
       // } catch (error) {
       //   toast({
       //     position: "top",
@@ -139,7 +139,6 @@ const Login = () => {
       //     isClosable: true,
       //   });
       // }
-
     } catch (e) {
       toast({
         position: "top",
@@ -154,7 +153,7 @@ const Login = () => {
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
-  
+
   return (
     <section className="todo-container">
       {/* <div className="todo">
@@ -181,69 +180,93 @@ const Login = () => {
       </div> */}
 
       <Flex
-      minH={'100vh'}
-      align={'center'}
-      justify={'center'}
-      bg={useColorModeValue('gray.50', 'gray.800')}>
-      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-        <Stack align={'center'}>
-          <Heading fontSize={'4xl'}>Sign Up</Heading>
-          <Text fontSize={'lg'} color={'gray.600'}>
-             <Text color={'blue.400'}>Only for the 1st time</Text>
-          </Text>
-        </Stack>
-        <Box
-          rounded={'lg'}
-          bg={useColorModeValue('white', 'gray.700')}
-          boxShadow={'lg'}
-          style={{width:"460px"}}
-          p={8}>
-          <Stack spacing={4}>
-            <FormControl id="text" isRequired>
-              <FormLabel>Name</FormLabel>
-              <Input type="text" isDisabled value={authData?.displayName} onChange={(e) => setName(e.target.value)}/>
-            </FormControl>
-            <FormControl id="email" isRequired>
-              <FormLabel>Email</FormLabel>
-              <Input type="email" isDisabled value={authData?.email} onChange={(e) => setEmail(e.target.value)}/>
-            </FormControl>
-            <FormControl id="number" isRequired>
-              <FormLabel>Age</FormLabel>
-              <Input type="number" onChange={(e) => setAge(e.target.value)}/>
-            </FormControl>
-            <FormControl id="number" isRequired>
-              <FormLabel>Height(in Cm.)</FormLabel>
-              <Input type="number" onChange={(e) => setHeight(e.target.value)}/>
-            </FormControl>
-            <FormControl id="number" isRequired>
-              <FormLabel>Weight(in Kgs.)</FormLabel>
-              <Input type="number" onChange={(e) => setWeight(e.target.value)}/>
-            </FormControl>
-            <FormControl id="text" isRequired>
-              <FormLabel>Metamask Address</FormLabel>
-              <Input type="text" onChange={(e) => setMetamaskAddress(e.target.value)}/>
-            </FormControl>
-
-            <FormControl colSpan={[6, 3]} isRequired>
-            <FormLabel>User Type</FormLabel>
-              <Input type="text" onChange={(e) => setUsertype(e.target.value)}/>
-            </FormControl>
-            <Stack spacing={10}>
-              <Button
-                bg={'blue.400'}
-                color={'white'}
-                _hover={{
-                  bg: 'blue.500',
-                }}
-                onClick={signIn}>
-                Sign in
-              </Button>
-            </Stack>
+        minH={"100vh"}
+        align={"center"}
+        justify={"center"}
+        bg={useColorModeValue("gray.50", "gray.800")}
+      >
+        <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+          <Stack align={"center"}>
+            <Heading fontSize={"4xl"}>Sign Up</Heading>
+            <Text fontSize={"lg"} color={"gray.600"}>
+              <Text color={"blue.400"}>Only for the 1st time</Text>
+            </Text>
           </Stack>
-        </Box>
-      </Stack>
-    </Flex>
+          <Box
+            rounded={"lg"}
+            bg={useColorModeValue("white", "gray.700")}
+            boxShadow={"lg"}
+            style={{ width: "460px" }}
+            p={8}
+          >
+            <Stack spacing={4}>
+              <FormControl id="text" isRequired>
+                <FormLabel>Name</FormLabel>
+                <Input
+                  type="text"
+                  isDisabled
+                  value={authData?.displayName}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </FormControl>
+              <FormControl id="email" isRequired>
+                <FormLabel>Email</FormLabel>
+                <Input
+                  type="email"
+                  isDisabled
+                  value={authData?.email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </FormControl>
+              <FormControl id="number" isRequired>
+                <FormLabel>Age</FormLabel>
+                <Input type="number" onChange={(e) => setAge(e.target.value)} />
+              </FormControl>
+              <FormControl id="number" isRequired>
+                <FormLabel>Height(in Cm.)</FormLabel>
+                <Input
+                  type="number"
+                  onChange={(e) => setHeight(e.target.value)}
+                />
+              </FormControl>
+              <FormControl id="number" isRequired>
+                <FormLabel>Weight(in Kgs.)</FormLabel>
+                <Input
+                  type="number"
+                  onChange={(e) => setWeight(e.target.value)}
+                />
+              </FormControl>
+              <FormControl id="text" isRequired>
+                <FormLabel>Metamask Address</FormLabel>
+                <Input
+                  type="text"
+                  onChange={(e) => setMetamaskAddress(e.target.value)}
+                />
+              </FormControl>
 
+              <FormControl colSpan={[6, 3]} isRequired>
+                <FormLabel>User Type</FormLabel>
+                <Input
+                  type="text"
+                  onChange={(e) => setUsertype(e.target.value)}
+                />
+              </FormControl>
+              <Stack spacing={10}>
+                <Button
+                  bg={"blue.400"}
+                  color={"white"}
+                  _hover={{
+                    bg: "blue.500",
+                  }}
+                  onClick={signIn}
+                >
+                  Sign in
+                </Button>
+              </Stack>
+            </Stack>
+          </Box>
+        </Stack>
+      </Flex>
     </section>
   );
 };
