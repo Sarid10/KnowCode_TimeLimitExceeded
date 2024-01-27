@@ -1,376 +1,228 @@
 {
-  "address": "0x87551c462e1e99baf441c101971fad5daa397f8c",
+  "address": "0x68978F2167D9efB20eFDBF86D7a707a7A6236845",
   "abi": [
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "_name",
-          "type": "string"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_doctorId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "string",
-          "name": "_specialism",
-          "type": "string"
-        }
-      ],
-      "name": "addDoctor",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "_name",
-          "type": "string"
-        },
-        {
-          "internalType": "uint16",
-          "name": "_age",
-          "type": "uint16"
-        },
-        {
-          "internalType": "uint16",
-          "name": "_weight",
-          "type": "uint16"
-        },
-        {
-          "internalType": "uint16",
-          "name": "_height",
-          "type": "uint16"
-        }
-      ],
-      "name": "addPatient",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_patient",
-          "type": "address"
-        },
-        {
-          "internalType": "string",
-          "name": "_diseaseName",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_drugName",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_imgurl",
-          "type": "string"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_charges",
-          "type": "uint256"
-        }
-      ],
-      "name": "diagnosePatient",
-      "outputs": [],
-      "stateMutability": "payable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_doctor",
-          "type": "address"
-        }
-      ],
-      "name": "DOCTOR_NOT_FOUND",
-      "type": "error"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_referredDoctor",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "_patient",
-          "type": "address"
-        }
-      ],
-      "name": "grantAccess",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "INSUFFICIENT_CONSULTANCYFEE",
-      "type": "error"
-    },
-    {
-      "inputs": [],
-      "name": "NOT_AUTHORIZED",
-      "type": "error"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_patient",
-          "type": "address"
-        }
-      ],
-      "name": "PATIENT_NOT_FOUND",
-      "type": "error"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "patient",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "doctor",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "string",
-          "name": "disease",
-          "type": "string"
-        },
-        {
-          "indexed": false,
-          "internalType": "string",
-          "name": "drug",
-          "type": "string"
-        }
-      ],
-      "name": "Diagnosis",
-      "type": "event"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_patient",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "_doctor",
-          "type": "address"
-        }
-      ],
-      "name": "removeAccess",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "doctors",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "id",
-          "type": "uint256"
-        },
-        {
-          "internalType": "string",
-          "name": "name",
-          "type": "string"
-        },
-        {
-          "internalType": "uint256",
-          "name": "doctorId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "string",
-          "name": "specialism",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_doctor",
-          "type": "address"
-        }
-      ],
-      "name": "getDoctorDetails",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        },
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        },
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        },
-        {
-          "internalType": "address[]",
-          "name": "",
-          "type": "address[]"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_patient",
-          "type": "address"
-        }
-      ],
-      "name": "getPatientDetails",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        },
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        },
-        {
-          "internalType": "uint16",
-          "name": "",
-          "type": "uint16"
-        },
-        {
-          "internalType": "uint16",
-          "name": "",
-          "type": "uint16"
-        },
-        {
-          "internalType": "uint16",
-          "name": "",
-          "type": "uint16"
-        },
-        {
-          "components": [
-            {
-              "internalType": "uint256",
-              "name": "case_no",
-              "type": "uint256"
-            },
-            {
-              "internalType": "string",
-              "name": "diseaseName",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "drugName",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "imgurl",
-              "type": "string"
-            },
-            {
-              "internalType": "address",
-              "name": "doctor",
-              "type": "address"
-            },
-            {
-              "internalType": "uint256",
-              "name": "consultancyFees",
-              "type": "uint256"
-            }
-          ],
-          "internalType": "struct Meddy.MedicalRecord[]",
-          "name": "",
-          "type": "tuple[]"
-        },
-        {
-          "internalType": "address[]",
-          "name": "",
-          "type": "address[]"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "patients",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "id",
-          "type": "uint256"
-        },
-        {
-          "internalType": "string",
-          "name": "name",
-          "type": "string"
-        },
-        {
-          "internalType": "uint16",
-          "name": "age",
-          "type": "uint16"
-        },
-        {
-          "internalType": "uint16",
-          "name": "weight",
-          "type": "uint16"
-        },
-        {
-          "internalType": "uint16",
-          "name": "height",
-          "type": "uint16"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    }
+    [
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "_patient",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_case_no",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "_diseaseName",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "_drugName",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "_imgurl",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_charges",
+            "type": "uint256"
+          }
+        ],
+        "name": "diagnosePatient",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "_doctor",
+            "type": "address"
+          }
+        ],
+        "name": "DOCTOR_NOT_FOUND",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "NOT_AUTHORIZED",
+        "type": "error"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "patient",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "doctor",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "string",
+            "name": "disease",
+            "type": "string"
+          },
+          {
+            "indexed": false,
+            "internalType": "string",
+            "name": "drug",
+            "type": "string"
+          }
+        ],
+        "name": "Diagnosis",
+        "type": "event"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "_referredDoctor",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "_patient",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_case_no",
+            "type": "uint256"
+          }
+        ],
+        "name": "grantAccess",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "_patient",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "_doctor",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_case_no",
+            "type": "uint256"
+          }
+        ],
+        "name": "removeAccess",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "_patient",
+            "type": "address"
+          }
+        ],
+        "name": "getAllRecords",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "case_no",
+                "type": "uint256"
+              },
+              {
+                "internalType": "string",
+                "name": "diseaseName",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "drugName",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "imgurl",
+                "type": "string"
+              },
+              {
+                "internalType": "address[]",
+                "name": "authorized",
+                "type": "address[]"
+              },
+              {
+                "internalType": "uint256",
+                "name": "consultancyFees",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct Meddy.MedicalRecord[]",
+            "name": "",
+            "type": "tuple[]"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "_case_no",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "_patient",
+            "type": "address"
+          }
+        ],
+        "name": "getPatientRecord",
+        "outputs": [
+          {
+            "internalType": "string",
+            "name": "",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      }
+    ]
   ]
 }
