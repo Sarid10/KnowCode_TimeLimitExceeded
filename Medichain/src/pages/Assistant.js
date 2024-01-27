@@ -24,7 +24,7 @@ const Assistant = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (history === []) {
+    if (!history.length) {
       console.log("No data yet");
     } else {
       console.log(localStorage.getItem("chatHistory"));
@@ -52,8 +52,8 @@ const Assistant = () => {
     // console.log(prev);
     const r = await getResponse(
       query +
-        "\n.Generate response in paragraph format without points in around 50 words.\n" +
-        prev
+      "\n.Generate response in paragraph format without points in around 50 words.\n" +
+      prev
     );
     history.push({ query: query, response: r });
     // setHistory([...history, {"query":query, "response":r}]);

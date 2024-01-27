@@ -34,6 +34,7 @@ const Diagnose = ({ onSuccess }) => {
   const [fees, setFees] = useState("");
   const [disease, setDisease] = useState("");
   const [drugs, setDrugs] = useState("");
+  const [caseNo, setCaseNo] = useState("");
   const retrieveFile = (e) => {
     const data = e.target.files[0];
     const reader = new window.FileReader();
@@ -88,11 +89,11 @@ const Diagnose = ({ onSuccess }) => {
     try {
       await contract.diagnosePatient(
         PatientAddress,
+        caseNo,
         disease,
         drugs,
         url,
-        fees,
-        { value: ethers.utils.parseEther(fees, 18) }
+        fees
       );
 
       toast({
@@ -135,6 +136,15 @@ const Diagnose = ({ onSuccess }) => {
           p={8}
         >
           <Stack spacing={4}>
+            <HStack>
+              <FormControl id="title" isRequired>
+                <FormLabel>Case Number</FormLabel>
+                <Input
+                  type="text"
+                  onChange={(e) => setCaseNo(e.target.value)}
+                />
+              </FormControl>
+            </HStack>
             <HStack>
               <FormControl id="title" isRequired>
                 <FormLabel>Patient Address</FormLabel>

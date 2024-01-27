@@ -27,11 +27,12 @@ const Consult = ({ onSuccess }) => {
 
   const { account, contract } = useContract();
   const [address, setAddress] = useState("");
+  const [caseNo, setCaseNo] = useState("");
 
   const add_client = async () => {
     try {
 
-      const addDoc = await contract.grantAccess(address, account);
+      const addDoc = await contract.grantAccess(address, account, caseNo);
       toast({
         position: "top",
         title: "New Client Added Successfully",
@@ -54,7 +55,7 @@ const Consult = ({ onSuccess }) => {
   const remove_doc = async () => {
     try {
 
-      const rmDoc = await contract.removeAccess(account, address);
+      const rmDoc = await contract.removeAccess(account, address, caseNo);
 
       toast({
         position: "top",
@@ -94,6 +95,12 @@ const Consult = ({ onSuccess }) => {
           p={8}
         >
           <Stack spacing={4}>
+            <HStack>
+              <FormControl id="title" isRequired>
+                <FormLabel>Case number</FormLabel>
+                <Input type="text" onChange={(e) => setCaseNo(e.target.value)} />
+              </FormControl>
+            </HStack>
             <HStack>
               <FormControl id="title" isRequired>
                 <FormLabel>Doctors Address</FormLabel>
