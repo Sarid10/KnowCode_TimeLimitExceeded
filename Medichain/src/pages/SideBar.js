@@ -116,15 +116,15 @@ const SidebarProps = {
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   // const { userType } = useContract();
   const [usertype, setUsertype] = useState("")
-  const { account } = useContract();
-  useEffect(()=>{
+  const { account ,userType} = useContract();
+  // useEffect(()=>{
 
-    if (account === "0x46A2A666fc06681e2cB49440a0776a6C4Cc21906" || account === "0x597875bcA8d92C79Cbbc735A90aD25b8CaB9D608" ||account === "0xf40b291189aE7F917c39D0B7e327E0A929c9952c" || account === "0xdaDD30aAEe8E15F925b3b0F0e18f84E6FE62C6f9") {
-      setUsertype("doctor");
-    } else {
-      setUsertype("patient");
-    }
-  }, [])
+  //   // if (account === "0x46A2A666fc06681e2cB49440a0776a6C4Cc21906" || account === "0x597875bcA8d92C79Cbbc735A90aD25b8CaB9D608" ||account === "0xf40b291189aE7F917c39D0B7e327E0A929c9952c" || account === "0xdaDD30aAEe8E15F925b3b0F0e18f84E6FE62C6f9") {
+  //   //   setUsertype("Doctor");
+  //   // } else {
+  //   //   setUsertype("Patient");
+  //   }
+  // }, [])
 
   // LinkItemProps
   const LinkItemProps = {
@@ -134,7 +134,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 
   let LinkItems: Array<LinkItemProps> = [];
 
-  if (usertype === "doctor") {
+  if (userType === "Doctor") {
     LinkItems = [
       { name: "Dashboard", icon: FiHome },
       { name: "Diagnose", icon: FiStar },
@@ -142,7 +142,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       { name: "Articles", icon: FiStar },
       { name: "Profile", icon: FiSettings },
     ];
-  } else if (usertype === "patient") {
+  } else if (userType === "Patient") {
     LinkItems = [
       { name: "Dashboard", icon: FiHome },
       { name: "Medical_History", icon: FiStar },
@@ -220,7 +220,7 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
 
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const [usertype, setUsertype] = useState("")
-  const { account } = useContract();
+  const { account,userType } = useContract();
   useEffect(()=>{
 
     if (account === "0x46A2A666fc06681e2cB49440a0776a6C4Cc21906" || account === "0x597875bcA8d92C79Cbbc735A90aD25b8CaB9D608" ||account === "0xf40b291189aE7F917c39D0B7e327E0A929c9952c" || account === "0xdaDD30aAEe8E15F925b3b0F0e18f84E6FE62C6f9") {
@@ -303,7 +303,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                 >
                   <Text fontSize="sm">You</Text>
                   <Text fontSize="xs" color="gray.600">
-                    {usertype}
+                    {userType}
                   </Text>
                 </VStack>
                 <Box display={{ base: "none", md: "flex" }}>

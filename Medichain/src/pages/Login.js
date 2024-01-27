@@ -20,10 +20,13 @@ import {
   Text,
   useColorModeValue,
   Select, 
-  useToast
+  useToast,
+  RadioGroup,
+  Radio
 } from '@chakra-ui/react'
 
 const Login = () => {
+  const [selectedOption, setSelectedOption] = useState("");
   const navigate = useNavigate();
   const toast = useToast();
   const { authData } = useContract();
@@ -48,7 +51,7 @@ const Login = () => {
   const [weight, setWeight] = useState(0);
   const [height, setHeight] = useState(0);
   const [metamaskAddress, setMetamaskAddress] = useState("");
-  const [usertype, setUsertype] = useState("Doctor");
+  const [usertype, setUsertype] = useState("");
 
   // const signup = async () => {
   //   const googleProvider = new GoogleAuthProvider();
@@ -67,9 +70,13 @@ const Login = () => {
     const res = await getDocs(collection(db,"profiles"))
     for(let i=0;i<res.docs.length;i++){
       if(res?.docs[i]?.data()?.email == email){
-        navigate("/Dashboard")
+        console.log("Hello",res?.docs[i]?.data()?.userType)
+        setUserType(res?.docs[i]?.data()?.userType)
+        console.log("Hello",userType)
+       return true
       }
     }
+    return false;
 
   };
 
@@ -94,7 +101,7 @@ const Login = () => {
         weight: weight,
         height: height,
         metamaskAddress: metamaskAddress,
-        userType: userType,
+        userType: usertype,
       });
       console.log("Document written with ID: ", docRef.id);
       toast({
@@ -104,53 +111,36 @@ const Login = () => {
         duration: 1500,
         isClosable: true,
       });
+      setUserType(usertype);
+      navigate("/Dashboard");
 
       // setting up contract
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      try {
-        if (provider) {
-          await provider.send("eth_requestAccounts", []);
+      // const provider = new ethers.providers.Web3Provider(window.ethereum);
+      // try {
+      //   if (provider) {
+      //     const signer = provider.getSigner();
+      //     const address = await signer.getAddress();
+      //     setAccount(address);
+      //     const contract = new ethers.Contract(
+      //       MeddyJSON.address,
+      //       MeddyJSON.abi,
+      //       signer
+      //     );
+      //     console.log(contract);
+      //     setContract(contract);
+      
+      //   } 
+      // } catch (error) {
+      //   toast({
+      //     position: "top",
+      //     title: "Error While Connecting With Metamask",
+      //     status: "error",
+      //     duration: 1500,
+      //     isClosable: true,
+      //   });
+      // }
 
-          window.ethereum.on("chainChanged", () => {
-            window.location.reload();
-          });
-
-          window.ethereum.on("accountsChanged", () => {
-            window.location.reload();
-          });
-
-          toast({
-            position: "top",
-            title: "Connected With Metamask Successfully",
-            status: "success",
-            duration: 1500,
-            isClosable: true,
-          });
-
-          const signer = provider.getSigner();
-          const address = await signer.getAddress();
-          setAccount(address);
-          const contract = new ethers.Contract(
-            MeddyJSON.address,
-            MeddyJSON.abi,
-            signer
-          );
-          console.log(contract);
-          setContract(contract);
-          setUserType(usertype);
-          navigate("/Dashboard");
-        } 
-      } catch (error) {
-        toast({
-          position: "top",
-          title: "Error While Connecting With Metamask",
-          status: "error",
-          duration: 1500,
-          isClosable: true,
-        });
-      }
     } catch (e) {
-      console.error("Error adding document: ", e);
       toast({
         position: "top",
         title: "Error while saving details",
@@ -161,6 +151,9 @@ const Login = () => {
     }
   };
 
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
   
   return (
     <section className="todo-container">
@@ -233,22 +226,8 @@ const Login = () => {
 
             <FormControl colSpan={[6, 3]} isRequired>
             <FormLabel>User Type</FormLabel>
-            <Select
-              id="userType"
-              name="userType"
-              autoComplete="userType"
-              focusBorderColor="brand.400"
-              shadow="sm"
-              size="sm"
-              w="full"
-              rounded="md"
-              value={usertype}
-              onChange={(e) => setUsertype(e.target.value)}>
-              <option value="Doctor">Doctor</option>
-              <option value="Patient">Patient</option>
-            </Select>
-          </FormControl>
-
+              <Input type="text" onChange={(e) => setUsertype(e.target.value)}/>
+            </FormControl>
             <Stack spacing={10}>
               <Button
                 bg={'blue.400'}
