@@ -19,6 +19,7 @@ const Profile = () => {
   const { account, contract } = useContract();
   const [usertype, setUsertype] = useState("");
   const [patientDetails, setPatientDetails] = useState([]);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,7 +35,14 @@ const Profile = () => {
         console.log(e);
       }
     };
-
+    if (account === "0x46A2A666fc06681e2cB49440a0776a6C4Cc21906") {
+      const getData = async () => {
+        const data = await contract.getDoctorDetails(account);
+        console.log(data);
+        setData(data);
+      };
+      getData();
+    }
     fetchData();
   }, [account, contract]);
 
@@ -74,7 +82,39 @@ const Profile = () => {
           </Card>
         </HStack>
       ) : (
-        <div>hello</div>
+        <HStack align={"center"} justify={"center"}>
+          <Card maxW="lg" align="center">
+            <CardBody>
+              <Image
+                src="/doco.jpg"
+                alt="Green double couch with wooden legs"
+                borderRadius="md"
+                width={400}
+                height={300}
+                style={{ alignItems: "center", marginLeft: "30px" }}
+              />
+              <Stack mt="6" spacing="3" align="center">
+                <Heading size="md">Name : {data[0]} </Heading>
+                <Heading size="md">DoctorId : 1</Heading>
+                <Heading size="md">Specialism : {data[2]}</Heading>
+                <Heading size="md">
+                  Total Number of Patients : {data[3]?.length}
+                </Heading>
+              </Stack>
+            </CardBody>
+            <Divider />
+            <CardFooter>
+              <ButtonGroup spacing="2">
+                <Link to="">
+                  {" "}
+                  <Button variant="solid" colorScheme="blue">
+                    View Cases
+                  </Button>
+                </Link>
+              </ButtonGroup>
+            </CardFooter>
+          </Card>
+        </HStack>
       )}
     </>
   );

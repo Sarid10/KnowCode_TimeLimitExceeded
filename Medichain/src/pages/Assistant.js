@@ -6,10 +6,12 @@ import axios from "axios";
 import { DNA } from "react-loader-spinner";
 import { Input } from "@chakra-ui/react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { useToast } from "@chakra-ui/react";
 
 const Assistant = () => {
   const genAi = new GoogleGenerativeAI("AIzaSyAAOmuIGSB9PUw_wnD1BLFQ7hFVS7qc_DA");
   const model = genAi.getGenerativeModel({model:"gemini-pro"});
+  const toast = useToast();
 
   const [history, setHistory] = useState([]);
 
@@ -25,6 +27,11 @@ const Assistant = () => {
     }
     else {
       // console.log(localStorage.getItem('chatHistory'));
+      let a = JSON.parse(localStorage.getItem('chatHistory'));
+      if(a) {
+        setHistory([...a, ])
+      }
+      console.log(history)
     }
   }, [])
 
@@ -33,7 +40,14 @@ const Assistant = () => {
     setSpinner(true);
     console.log(query);
     setResponse("");
-    const r = await getResponse(query + "\n.Generate response in paragraph format without points in around 50 words");
+    let prev = "Use previous context(if applicable) previous questions and their responses are provided as follows: \n";
+    if(history) {
+      for(let i=0; i<history.length; i++) {
+        prev = prev + history[i].query + ": " + history[i].response + ", ";
+      }
+    }
+    // console.log(prev);
+    const r = await getResponse(query + "\n.Generate response in paragraph format without points in around 50 words.\n" + prev);
     history.push({"query":query, "response":r});
     // setHistory([...history, {"query":query, "response":r}]);
     // console.log(history)
@@ -41,15 +55,27 @@ const Assistant = () => {
   }
 
   async function getResponse(inp) {
-    const result = await model.generateContentStream(inp);
-    setSpinner(false);
     let txt = "";
-    for await (const chunk of result.stream) {
-        const chunkText = chunk.text();
-        txt += chunkText;
-        setResponse(prev => prev + chunkText);
+    try{
+      const result = await model.generateContentStream(inp);
+      setSpinner(false);
+    
+      for await (const chunk of result.stream) {
+          const chunkText = chunk.text();
+          txt += chunkText;
+          setResponse(prev => prev + chunkText);
+      }
     }
-    setResponse(response + txt);
+    catch(err) {
+      toast({
+        position: "top",
+        title: "Please Enter Non-Harmful Query",
+        status: "error",
+        duration: 1500,
+        isClosable: true,
+      });
+    }
+    // setResponse(response + txt);
     return txt;
     // const response = await result.response;
     // const text = response.text();
@@ -157,6 +183,13 @@ const Assistant = () => {
               marginRight: "100px",
             }}
           >
+            <div className={styles.text}>
+              <div className={styles.titles}>
+                <div className={styles.popularExercises} style={{fontSize:"45px"}}>
+                  AI assistant:
+                </div>
+              </div>
+            </div>
             {response}
           </div>
         )}
