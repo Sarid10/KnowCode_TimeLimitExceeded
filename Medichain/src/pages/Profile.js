@@ -35,15 +35,17 @@ const Profile = () => {
         console.log(e);
       }
     };
+    const getData = async () => {
+      const data = await contract.getDoctorDetails(account);
+      console.log(data);
+      setData(data);
+    };
     if (account === "0x46A2A666fc06681e2cB49440a0776a6C4Cc21906") {
-      const getData = async () => {
-        const data = await contract.getDoctorDetails(account);
-        console.log(data);
-        setData(data);
-      };
       getData();
+    } else {
+      fetchData();
+
     }
-    fetchData();
   }, [account, contract]);
 
   return (
