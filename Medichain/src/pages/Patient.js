@@ -57,12 +57,9 @@ const Patient = () => {
                     <Heading size="xs" textTransform="uppercase">
                       Patient Name:
                     </Heading>
-                    <div style={{ display: "flex" }}>
-                      <Text pt="2" fontSize="sm">
-                        {element[1]}
-                      </Text>
-                      <div className={styles.div6}>04</div>
-                    </div>
+                    <Text pt="2" fontSize="sm">
+                      {element[1]}
+                    </Text>
                   </Box>
                   <Box>
                     <Heading size="xs" textTransform="uppercase">
