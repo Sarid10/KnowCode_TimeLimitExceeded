@@ -22,7 +22,10 @@ const Profile = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    if (account === "0x46A2A666fc06681e2cB49440a0776a6C4Cc21906") {
+    if (
+      account === "0x46A2A666fc06681e2cB49440a0776a6C4Cc21906" ||
+      account === "0xf40b291189aE7F917c39D0B7e327E0A929c9952c"
+    ) {
       setUsertype("doctor");
     } else {
       setUsertype("patient");
@@ -35,7 +38,10 @@ const Profile = () => {
         console.log(e);
       }
     };
-    if (account === "0x46A2A666fc06681e2cB49440a0776a6C4Cc21906") {
+    if (
+      account === "0x46A2A666fc06681e2cB49440a0776a6C4Cc21906" ||
+      account === "0xf40b291189aE7F917c39D0B7e327E0A929c9952c"
+    ) {
       const getData = async () => {
         const data = await contract.getDoctorDetails(account);
         console.log(data);
