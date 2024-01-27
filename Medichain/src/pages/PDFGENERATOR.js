@@ -7,6 +7,8 @@ import DataTable from "./DataTable";
 // import hospital from "../assets/hospital.png";
 import top from "../assets/bg.jpg";
 import sign from "../assets/tick.jpg";
+import styles from "./HomePage.module.css";
+
 const PDFGenerator = ({ data }) => {
     const pdfRef = useRef();
 
@@ -30,7 +32,9 @@ const PDFGenerator = ({ data }) => {
 
     return (
         <div>
-            <button onClick={generatePDF}>Generate PDF</button>
+            <button className={styles.button} onClick={generatePDF}>
+                <div className={styles.getStarted}>Generate PDF</div>
+              </button>
             <div ref={pdfRef}>
                 <DataTable data={data} />
             </div>
