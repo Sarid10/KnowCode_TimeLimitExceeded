@@ -1,11 +1,12 @@
 // PDFGenerator.js
 
-import React, { useRef } from 'react';
-import { jsPDF } from 'jspdf';
-import html2canvas from 'html2canvas';
-import DataTable from './DataTable';
-import bg from "../assets/bg.jpg";
-
+import React, { useRef } from "react";
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
+import DataTable from "./DataTable";
+// import hospital from "../assets/hospital.png";
+import top from "../assets/bg.jpg";
+import sign from "../assets/tick.jpg";
 const PDFGenerator = ({ data }) => {
     const pdfRef = useRef();
 
@@ -15,13 +16,16 @@ const PDFGenerator = ({ data }) => {
 
         // Convert the component to an image using html2canvas
         const canvas = await html2canvas(pdfNode);
-        const imageData = canvas.toDataURL('image/png');
+        const imageData = canvas.toDataURL("image/png");
 
         // Add the image to the PDF
-        pdf.addImage(bg, 'PNG', 10, 10, 190, 0);
+        // pdf.addImage(hospital, "PNG", 10, 10, 100, 0);
+        pdf.addImage(top, "PNG", 10, 10, 190, 0);
+        pdf.addImage(imageData, "PNG", 50, 70, 200, 0);
+        pdf.addImage(sign, "PNG", 125, 200, 0, 0);
 
         // Save or display the PDF
-        pdf.save('table.pdf');
+        pdf.save("table.pdf");
     };
 
     return (
