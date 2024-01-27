@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { Card, CardBody, Image, Stack, Heading, Text, Divider, CardFooter, Button, ButtonGroup } from "@chakra-ui/react";
-
+import styles from "./HomePage.module.css";
 import { useContract } from "../context/context";
 
 const Medical_History = () => {
@@ -45,40 +45,39 @@ const Medical_History = () => {
         //     <div>{element[4]}</div>
         //   </div>)
         // })
-
-        data && data.map((element, idx) => {
-          return (<div key={idx}>
-            <Card maxW='sm' style={{ height: "100%" }}>
-              <CardBody>
-                <Image
-                  style={{ height: "200px", width: "100%" }}
-                  src={"/interaction.jpg"}
-                  alt='Green double couch with wooden legs'
-                  borderRadius='lg'
-                />
-                <Stack mt='6' spacing='3'>
-                  <Heading size='md'>{element[1]}</Heading>
-                  <Text>
-                    {element[2]}
-                  </Text>
-                  <Text color='blue.600' fontSize='2xl'>
-                    Address: {element[4]}
-                  </Text>
-                </Stack>
-              </CardBody>
-              <Divider />
-              {/* <CardFooter>
-                <ButtonGroup spacing='2'>
-                  <Button variant='solid' colorScheme='blue'>
-                    <a href={news.data.articles[index].url} target="_blank" rel="noopener noreferrer">
-                      View Here
-                    </a>
-                  </Button>
-                </ButtonGroup>
-              </CardFooter> */}
-            </Card>
-          </div>)
-        })
+        <div>
+          <div className={styles.loremIpsumDolor} style={{ fontWeight: "bolder", fontSize: "70px", marginBottom: "50px" }}>
+            Medical History:
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1rem", marginLeft: "auto", marginRight: "auto" }}>
+            {
+              data && data.map((element, idx) => {
+                return (<div key={idx}>
+                  <Card maxW='sm' style={{ height: "100%" }}>
+                    <CardBody>
+                      <Image
+                        style={{ height: "200px", width: "100%" }}
+                        src={"/interaction.jpg"}
+                        alt='Green double couch with wooden legs'
+                        borderRadius='lg'
+                      />
+                      <Stack mt='6' spacing='3'>
+                        <Heading size='md' style={{ fontSize: "35px" }}>Disease: {element[1]}</Heading>
+                        <Text style={{ fontSize: "25px" }}>
+                          Drug: {element[2]}
+                        </Text>
+                        <Text color='blue.600' fontSize='2xl'>
+                          Address: {element[4]}
+                        </Text>
+                      </Stack>
+                    </CardBody>
+                    <Divider />
+                  </Card>
+                </div>)
+              })
+            }
+          </div>
+        </div>
 
       }
     </>

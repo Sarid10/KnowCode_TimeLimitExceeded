@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Tabs, Tab, TabList, TabPanel, TabPanels } from "@chakra-ui/react";
 import { useEffect } from "react";
 import styles from "./HomePage.module.css";
 
@@ -38,18 +37,23 @@ const Disease = () => {
   }
 
   return (
-    <>
-      {
-        data && data.map((element, idx) => {
-          return (
-            <button className={styles.button} key={idx} >
-              <div className={styles.getStarted}>{element}</div>
-            </button>
-          )
-        })
+    <div>
+      <div className={styles.loremIpsumDolor} style={{ fontWeight: "bolder", fontSize: "70px", marginBottom: "50px" }}>
+        List Of Diseases:
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1rem", marginLeft: "auto", marginRight: "auto" }}>
+        {
+          data && data.map((element, idx) => {
+            return (
+              <button className={styles.button} key={idx} >
+                <div className={styles.getStarted}>{element}</div>
+              </button>
+            )
+          })
 
-      }
-    </>
+        }
+      </div>
+    </div>
   )
 };
 
