@@ -9,8 +9,7 @@ export const MeddyProvider = (props) => {
   const [account, setAccount] = useState("");
   const [contract, setContract] = useState(null);
   const [provider, setProvider] = useState(null);
-
-
+  const [authData, setAuthData] = useState([]);
 
   return (
     <MeddyContext.Provider
@@ -23,6 +22,8 @@ export const MeddyProvider = (props) => {
         setProvider,
         userType,
         setUserType,
+        setAuthData,
+        authData,
       }}
     >
       {props.children}

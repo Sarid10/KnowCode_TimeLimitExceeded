@@ -6,6 +6,8 @@ import { useToast } from "@chakra-ui/react";
 import { ethers } from "ethers";
 import { ChatIcon } from "@chakra-ui/icons";
 import MeddyJSON from "../constants/Meddy.json";
+import { db, FirebaseAuth } from "../firebase/firebase-config";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -20,6 +22,7 @@ const HomePage = () => {
     setUserType,
     patientProfile,
     setPatientProfile,
+    setAuthData,
   } = useContract();
 
   const [data, setdata] = useState({
@@ -74,6 +77,15 @@ const HomePage = () => {
   //     state: { address: data["address"], Balance: data["Balance"] },
   //   });
   // };
+
+  const requestGoogleAuth = async () => {
+    const googleProvider = new GoogleAuthProvider();
+    await signInWithPopup(FirebaseAuth, googleProvider).then((data) => {
+      setAuthData(data?.user);
+      console.log(data);
+      navigate("/login");
+    });
+  };
 
   const requestMetaMaskAccess = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -184,14 +196,13 @@ const HomePage = () => {
     }
   }, []);
 
-
   const chatBotResponse = async (e) => {
     e.preventDefault();
     console.log(input);
 
     const op = await getResponse(
       input +
-      ".\nGenerate Content in numbered points and one liners around 20 - 25 words."
+        ".\nGenerate Content in numbered points and one liners around 20 - 25 words."
     );
     console.log(op);
   };
@@ -242,9 +253,9 @@ const HomePage = () => {
               <button
                 className={styles.login}
                 style={{ fontSize: "180%" }}
-                onClick={requestMetaMaskAccess}
+                onClick={requestGoogleAuth}
               >
-                LOGIN WITH METAMASK
+                LOGIN
               </button>
             </div>
             <button className={styles.hamburgerIcon}>

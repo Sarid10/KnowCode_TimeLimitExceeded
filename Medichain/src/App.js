@@ -20,6 +20,7 @@ import News from "./pages/News";
 import Assistant from "./pages/Assistant";
 import Disease from "./pages/Disease";
 import Consult from "./pages/Consult";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
 
         <Route path="/news" element={<News />} />
+        <Route path="/login" element={<Login />} />
 
         <Route path="/assistant" element={<Assistant />} />
 
