@@ -94,6 +94,7 @@ const Diagnose = ({ onSuccess }) => {
         fees,
         { value: ethers.utils.parseEther(fees, 18) }
       );
+
       toast({
         position: "top",
         title: "Diagnosed Successfully",
@@ -122,7 +123,10 @@ const Diagnose = ({ onSuccess }) => {
     >
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
-          <Heading fontSize={"4xl"} textAlign={"center"}> PATIENT REPORT</Heading>
+          <Heading fontSize={"4xl"} textAlign={"center"}>
+            {" "}
+            PATIENT REPORT
+          </Heading>
         </Stack>
         <Box
           rounded={"lg"}

@@ -19,6 +19,8 @@
     "dotenv": "^16.4.1",
     "ethers": "^5.7.2",
     "framer-motion": "^10.16.4",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
     "pdf-lib": "^1.17.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

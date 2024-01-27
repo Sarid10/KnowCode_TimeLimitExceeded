@@ -9,8 +9,10 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { useToast } from "@chakra-ui/react";
 
 const Assistant = () => {
-  const genAi = new GoogleGenerativeAI("AIzaSyAAOmuIGSB9PUw_wnD1BLFQ7hFVS7qc_DA");
-  const model = genAi.getGenerativeModel({model:"gemini-pro"});
+  const genAi = new GoogleGenerativeAI(
+    "AIzaSyAAOmuIGSB9PUw_wnD1BLFQ7hFVS7qc_DA"
+  );
+  const model = genAi.getGenerativeModel({ model: "gemini-pro" });
   const toast = useToast();
 
   const [history, setHistory] = useState([]);
@@ -22,51 +24,55 @@ const Assistant = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(history === []) {
+    if (history === []) {
       console.log("No data yet");
-    }
-    else {
-      // console.log(localStorage.getItem('chatHistory'));
-      let a = JSON.parse(localStorage.getItem('chatHistory'));
-      if(a) {
-        setHistory([...a, ])
-      }
-      console.log(history)
-    }
-  }, [])
+    } else {
+      console.log(localStorage.getItem("chatHistory"));
+      let a = JSON.parse(localStorage.getItem("chatHistory"));
 
-  const handleQuery = async(e) => {
-    e.preventDefault(); 
+      if (a) {
+        setHistory([...a]);
+      }
+      console.log(history);
+    }
+  }, []);
+
+  const handleQuery = async (e) => {
+    e.preventDefault();
     setSpinner(true);
     console.log(query);
     setResponse("");
-    let prev = "Use previous context(if applicable) previous questions and their responses are provided as follows: \n";
-    if(history) {
-      for(let i=0; i<history.length; i++) {
+    let prev =
+      "Use previous context(if applicable) previous questions and their responses are provided as follows: \n";
+    if (history) {
+      for (let i = 0; i < history.length; i++) {
         prev = prev + history[i].query + ": " + history[i].response + ", ";
       }
     }
     // console.log(prev);
-    const r = await getResponse(query + "\n.Generate response in paragraph format without points in around 50 words.\n" + prev);
-    history.push({"query":query, "response":r});
+    const r = await getResponse(
+      query +
+        "\n.Generate response in paragraph format without points in around 50 words.\n" +
+        prev
+    );
+    history.push({ query: query, response: r });
     // setHistory([...history, {"query":query, "response":r}]);
     // console.log(history)
     localStorage.setItem("chatHistory", JSON.stringify(history));
-  }
+  };
 
   async function getResponse(inp) {
     let txt = "";
-    try{
+    try {
       const result = await model.generateContentStream(inp);
       setSpinner(false);
-    
+
       for await (const chunk of result.stream) {
-          const chunkText = chunk.text();
-          txt += chunkText;
-          setResponse(prev => prev + chunkText);
+        const chunkText = chunk.text();
+        txt += chunkText;
+        setResponse((prev) => prev + chunkText);
       }
-    }
-    catch(err) {
+    } catch (err) {
       toast({
         position: "top",
         title: "Please Enter Non-Harmful Query",
@@ -185,7 +191,10 @@ const Assistant = () => {
           >
             <div className={styles.text}>
               <div className={styles.titles}>
-                <div className={styles.popularExercises} style={{fontSize:"45px"}}>
+                <div
+                  className={styles.popularExercises}
+                  style={{ fontSize: "45px" }}
+                >
                   AI assistant:
                 </div>
               </div>
