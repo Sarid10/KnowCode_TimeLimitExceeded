@@ -26,11 +26,12 @@ const Consult = ({ onSuccess }) => {
   const toast = useToast();
 
   const { account, contract } = useContract();
-  const [name, setName] = useState("");
   const [address, setAddress] = useState("");
 
   const add_client = async () => {
     try {
+
+      const addDoc = await contract.grantAccess(address, account);
       toast({
         position: "top",
         title: "New Client Added Successfully",
@@ -38,11 +39,35 @@ const Consult = ({ onSuccess }) => {
         duration: 1500,
         isClosable: true,
       });
-      onSuccess();
+
     } catch (err) {
       toast({
         position: "top",
         title: "Error While Adding Client",
+        status: "error",
+        duration: 1500,
+        isClosable: true,
+      });
+      console.log(err);
+    }
+  };
+  const remove_doc = async () => {
+    try {
+
+      const rmDoc = await contract.removeAccess(account, address);
+
+      toast({
+        position: "top",
+        title: "Doctor removed Successfully",
+        status: "success",
+        duration: 1500,
+        isClosable: true,
+      });
+
+    } catch (err) {
+      toast({
+        position: "top",
+        title: "Error While removing Client",
         status: "error",
         duration: 1500,
         isClosable: true,
@@ -71,14 +96,14 @@ const Consult = ({ onSuccess }) => {
           <Stack spacing={4}>
             <HStack>
               <FormControl id="title" isRequired>
-                <FormLabel>Client Name</FormLabel>
-                <Input type="text" onChange={(e) => setName(e.target.value)} />
+                <FormLabel>Doctors Address</FormLabel>
+                <Input type="text" onChange={(e) => setAddress(e.target.value)} />
               </FormControl>
             </HStack>
-            <FormControl id="desc" isRequired>
+            {/* <FormControl id="desc" isRequired>
               <FormLabel>Client Address</FormLabel>
               <Input type="text" onChange={(e) => setAddress(e.target.value)} />
-            </FormControl>
+            </FormControl> */}
 
             <Stack spacing={10} pt={2}>
               <Button
@@ -92,6 +117,18 @@ const Consult = ({ onSuccess }) => {
                 }}
               >
                 Add
+              </Button>
+              <Button
+                onClick={remove_doc}
+                loadingText="Submitting"
+                size="lg"
+                bg={"red.400"}
+                color={"white"}
+                _hover={{
+                  bg: "blue.500",
+                }}
+              >
+                Remove
               </Button>
             </Stack>
             <Stack pt={6}></Stack>

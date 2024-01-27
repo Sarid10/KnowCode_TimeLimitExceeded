@@ -9,11 +9,11 @@ const container = document.getElementById("root");
 const root = createRoot(container);
 
 root.render(
-  <PatientProvider>
-    <MeddyProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </MeddyProvider>
-  </PatientProvider>
+  <MeddyProvider>
+    {/* <PatientProvider> */}
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+    {/* </PatientProvider> */}
+  </MeddyProvider>
 );

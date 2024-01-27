@@ -12,6 +12,7 @@ const Patient = () => {
 
 
 
+
   return <h1>{profile}</h1>;
 };
 

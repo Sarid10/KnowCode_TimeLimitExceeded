@@ -1,13 +1,88 @@
 import React, { useState } from "react";
-import { Tabs, Tab, TabList, TabPanel, TabPanels } from "@chakra-ui/react";
 import { useEffect } from "react";
+import { Card, CardBody, Image, Stack, Heading, Text, Divider, CardFooter, Button, ButtonGroup } from "@chakra-ui/react";
 
 import { useContract } from "../context/context";
 
 const Medical_History = () => {
-  useEffect(() => {}, []);
+  const { contract, account } = useContract();
 
-  return <h1>Medical_History</h1>;
+  const [patientProfile, setPatientProfile] = useState([])
+  const [data, setData] = useState([]);
+
+
+  useEffect(() => {
+    const getData = async () => {
+      const pf = await contract.getPatientDetails(account);
+      console.log(pf[5])
+      let temp = []
+      for (let record in pf[5]) {
+        // for (let val in pf[5][record]) {
+        //   if (typeof pf[5][record][val] !== typeof {}) {
+        //     temp.push(pf[5][record][val])
+        //   }
+        // }
+        temp.push(pf[5][record])
+      }
+      console.log(pf)
+      setData(temp)
+      setPatientProfile(pf)
+    }
+    getData()
+  }, [])
+
+
+  return (
+    <>
+      {
+
+
+        // data && data.map((element, idx) => {
+        //   return (<div key={idx}>
+        //     <div>{element[1]}</div>
+        //     <div>{element[2]}</div>
+        //     <div>{element[3]}</div>
+        //     <div>{element[4]}</div>
+        //   </div>)
+        // })
+
+        data && data.map((element, idx) => {
+          return (<div key={idx}>
+            <Card maxW='sm' style={{ height: "100%" }}>
+              <CardBody>
+                <Image
+                  style={{ height: "200px", width: "100%" }}
+                  src={"/interaction.jpg"}
+                  alt='Green double couch with wooden legs'
+                  borderRadius='lg'
+                />
+                <Stack mt='6' spacing='3'>
+                  <Heading size='md'>{element[1]}</Heading>
+                  <Text>
+                    {element[2]}
+                  </Text>
+                  <Text color='blue.600' fontSize='2xl'>
+                    Address: {element[4]}
+                  </Text>
+                </Stack>
+              </CardBody>
+              <Divider />
+              {/* <CardFooter>
+                <ButtonGroup spacing='2'>
+                  <Button variant='solid' colorScheme='blue'>
+                    <a href={news.data.articles[index].url} target="_blank" rel="noopener noreferrer">
+                      View Here
+                    </a>
+                  </Button>
+                </ButtonGroup>
+              </CardFooter> */}
+            </Card>
+          </div>)
+        })
+
+      }
+    </>
+  );
 };
 
 export default Medical_History;

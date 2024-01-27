@@ -14,6 +14,7 @@ export const PatientProvider = (props) => {
     })
 
     const { account, contract } = useContract();
+    console.log("account", account, "contract", contract)
 
     useEffect(() => {
         const getProfileDetails = async () => {

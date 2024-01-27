@@ -18,6 +18,8 @@ const HomePage = () => {
     setProvider,
     userType,
     setUserType,
+    patientProfile,
+    setPatientProfile,
   } = useContract();
 
   const [data, setdata] = useState({
@@ -117,6 +119,7 @@ const HomePage = () => {
           MeddyJSON.abi,
           signer
         );
+
         console.log(contract);
         setContract(contract);
 
@@ -181,7 +184,6 @@ const HomePage = () => {
     }
   }, []);
 
-  const subscribeToEmail = () => {};
 
   const chatBotResponse = async (e) => {
     e.preventDefault();
@@ -189,7 +191,7 @@ const HomePage = () => {
 
     const op = await getResponse(
       input +
-        ".\nGenerate Content in numbered points and one liners around 20 - 25 words."
+      ".\nGenerate Content in numbered points and one liners around 20 - 25 words."
     );
     console.log(op);
   };

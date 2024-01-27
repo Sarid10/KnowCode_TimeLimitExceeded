@@ -10,6 +10,8 @@ export const MeddyProvider = (props) => {
   const [contract, setContract] = useState(null);
   const [provider, setProvider] = useState(null);
 
+
+
   return (
     <MeddyContext.Provider
       value={{

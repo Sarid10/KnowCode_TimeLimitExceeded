@@ -113,7 +113,7 @@ const SidebarProps = {
 //   { name: 'Profile', icon: FiSettings },
 // ]
 
-const SidebarContent = ({ onClose, ...rest }) => {
+const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   const { userType } = useContract();
 
   // LinkItemProps
@@ -122,7 +122,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
     icon: "IconType",
   };
 
-  // let LinkItems: Array<LinkItemProps> = [];
+  let LinkItems: Array<LinkItemProps> = [];
 
   if (userType === "Doctor") {
     LinkItems = [
@@ -170,7 +170,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
   );
 };
 
-const NavItem = ({ icon, children, ...rest }) => {
+const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
   return (
     <Link to={`/${children}`}>
       <Box
@@ -208,7 +208,7 @@ const NavItem = ({ icon, children, ...rest }) => {
   );
 };
 
-const MobileNav = ({ onOpen, ...rest }) => {
+const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const { userType } = useContract();
 
   const navigate = useNavigate();
@@ -216,7 +216,6 @@ const MobileNav = ({ onOpen, ...rest }) => {
 
   const signOutOfMetamask = () => {
     navigate("/");
-    localStorage.setItem("chatHistory", "");
 
     toast({
       position: "top",
