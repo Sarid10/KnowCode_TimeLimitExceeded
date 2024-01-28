@@ -25,72 +25,71 @@ const Patient = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const dataa = await contract.getDoctorDetails(account);
-      setData(dataa[3]);
+      const dataa = await contract?.getAllRecords(
+        "0x948b2bF9ca09477DdE6E46597aBCE7be39Bd0BA7"
+      );
+      console.log(dataa);
+      setData(dataa && dataa[0]);
 
-      let temp = [];
-      let temp2 = [];
-      for (let val in dataa[3]) {
-        temp.push(dataa[3][val]);
-        const res = await contract.getPatientDetails(dataa[3][val]);
-        temp2.push(res);
-      }
-      setpDetails(temp2);
-      console.log(pDetails);
+      // let temp = [];
+      // let temp2 = [];
+      // for (let val in dataa[3]) {
+      //   temp.push(dataa[3][val]);
+      //   const res = await contract.getPatientDetails(dataa[3][val]);
+      //   temp2.push(res);
+      // }
+      // setpDetails(temp2);
+      // console.log(pDetails);
     };
     getData();
   }, []);
 
   return (
     <div>
-      {pDetails.map((element, idx) => {
-        return (
-          <div key={idx}>
-            <Card style={{ width: "30%" }}>
-              <CardHeader>
-                <Heading size="md">Patient Report</Heading>
-              </CardHeader>
+      <div key={{}}>
+        <Card style={{ width: "30%" }}>
+          <CardHeader>
+            <Heading size="md">Patient Report</Heading>
+          </CardHeader>
 
-              <CardBody>
-                <Stack divider={<StackDivider />} spacing="4">
-                  <Box>
-                    <Heading size="xs" textTransform="uppercase">
-                      Patient Name:
-                    </Heading>
-                    <Text pt="2" fontSize="sm">
-                      {element[1]}
-                    </Text>
-                  </Box>
-                  <Box>
-                    <Heading size="xs" textTransform="uppercase">
-                      Patient Age
-                    </Heading>
-                    <Text pt="2" fontSize="sm">
-                      {element[2]}
-                    </Text>
-                  </Box>
-                  <Box>
-                    <Heading size="xs" textTransform="uppercase">
-                      Patient Weight
-                    </Heading>
-                    <Text pt="2" fontSize="sm">
-                      {element[3]}
-                    </Text>
-                  </Box>
-                  <Box>
-                    <Heading size="xs" textTransform="uppercase">
-                      height
-                    </Heading>
-                    <Text pt="2" fontSize="sm">
-                      {element[4]}
-                    </Text>
-                  </Box>
-                </Stack>
-              </CardBody>
-            </Card>
-          </div>
-        );
-      })}
+          <CardBody>
+            <Stack divider={<StackDivider />} spacing="4">
+              <Box>
+                <Heading size="xs" textTransform="uppercase">
+                  Disease Name :
+                </Heading>
+                <Text pt="2" fontSize="sm">
+                  {data && data[1]}
+                </Text>
+              </Box>
+              <Box>
+                <Heading size="xs" textTransform="uppercase">
+                  Drug Name
+                </Heading>
+                <Text pt="2" fontSize="sm">
+                  {data && data[2]}
+                </Text>
+              </Box>
+              <Box>
+                <Heading size="xs" textTransform="uppercase">
+                  Patient Weight
+                </Heading>
+                <Text pt="2" fontSize="sm">
+                  60
+                </Text>
+              </Box>
+              <Box>
+                <Heading size="xs" textTransform="uppercase">
+                  height
+                </Heading>
+                <Text pt="2" fontSize="sm">
+                  180
+                </Text>
+              </Box>
+            </Stack>
+          </CardBody>
+        </Card>
+      </div>
     </div>
   );
 };

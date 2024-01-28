@@ -61,12 +61,12 @@ const NavItemProps = {
 
 // MobileProps
 const MobileProps = {
-  onOpen: () => { },
+  onOpen: () => {},
 };
 
 // SidebarProps
 const SidebarProps = {
-  onClose: () => { },
+  onClose: () => {},
 };
 
 // let LinkItems: Array<LinkItemProps> = []
@@ -115,8 +115,8 @@ const SidebarProps = {
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   // const { userType } = useContract();
-  const [usertype, setUsertype] = useState("")
-  const { account ,userType} = useContract();
+  const [usertype, setUsertype] = useState("");
+  const { account, userType } = useContract();
   // useEffect(()=>{
 
   //   // if (account === "0x46A2A666fc06681e2cB49440a0776a6C4Cc21906" || account === "0x597875bcA8d92C79Cbbc735A90aD25b8CaB9D608" ||account === "0xf40b291189aE7F917c39D0B7e327E0A929c9952c" || account === "0xdaDD30aAEe8E15F925b3b0F0e18f84E6FE62C6f9") {
@@ -219,16 +219,20 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
 };
 
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
-  const [usertype, setUsertype] = useState("")
-  const { account,userType } = useContract();
-  useEffect(()=>{
-
-    if (account === "0x46A2A666fc06681e2cB49440a0776a6C4Cc21906" || account === "0x597875bcA8d92C79Cbbc735A90aD25b8CaB9D608" ||account === "0xf40b291189aE7F917c39D0B7e327E0A929c9952c" || account === "0xdaDD30aAEe8E15F925b3b0F0e18f84E6FE62C6f9") {
+  const [usertype, setUsertype] = useState("");
+  const { account, userType } = useContract();
+  useEffect(() => {
+    if (
+      account === "0x46A2A666fc06681e2cB49440a0776a6C4Cc21906" ||
+      account === "0x597875bcA8d92C79Cbbc735A90aD25b8CaB9D608" ||
+      account === "0xf40b291189aE7F917c39D0B7e327E0A929c9952c" ||
+      account === "0xdaDD30aAEe8E15F925b3b0F0e18f84E6FE62C6f9"
+    ) {
       setUsertype("doctor");
     } else {
       setUsertype("patient");
     }
-  }, [])
+  }, []);
 
   const navigate = useNavigate();
   const toast = useToast();

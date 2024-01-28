@@ -73,6 +73,7 @@ const Login = () => {
         console.log("Hello", res?.docs[i]?.data()?.userType);
         setUserType(res?.docs[i]?.data()?.userType);
         console.log("Hello", userType);
+
         return true;
       }
     }
