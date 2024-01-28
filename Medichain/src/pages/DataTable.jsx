@@ -21,9 +21,6 @@ const DataTable = ({ data }) => {
             Disease
           </th>
           <th style={{ border: "1px solid black", padding: "10px" }}>Drug</th>
-          <th style={{ border: "1px solid black", padding: "10px" }}>
-            Doctor Address
-          </th>
         </tr>
       </thead>
       <tbody>
@@ -45,9 +42,6 @@ const DataTable = ({ data }) => {
           </td>
           <td style={{ border: "1px solid black", padding: "10px" }}>
             {data[0]?.drug}
-          </td>
-          <td style={{ border: "1px solid black", padding: "10px" }}>
-            {data[0]?.doctorAddress}
           </td>
         </tr>
       </tbody>
