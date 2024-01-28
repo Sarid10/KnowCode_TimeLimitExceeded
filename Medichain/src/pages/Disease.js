@@ -14,17 +14,9 @@ const Disease = () => {
   useEffect(() => {
     const getData = async () => {
       const pf = await contract.getAllRecords(account);
-      let temp = []
-      for (let record in pf[5]) {
-
-
-        temp.push(pf[5][record][1])
-
-
-
+      for (let d in pf) {
+        setData((prevData) => [...prevData, pf[d][1]]);
       }
-      console.log(temp)
-      setData(temp)
       setPatientProfile(pf)
     }
     getData()

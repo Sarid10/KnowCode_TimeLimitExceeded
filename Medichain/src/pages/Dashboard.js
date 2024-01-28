@@ -80,7 +80,7 @@ const Dashboard = (props) => {
           const contract = new ethers.Contract(
             MeddyJSON.address,
             MeddyJSON.abi,
-            provider
+            signer
           );
 
           console.log(contract);
